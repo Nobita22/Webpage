@@ -261,6 +261,29 @@
       .hero p {
         font-size: 18px;
       }
+
+      /* Stack tabs vertically on mobile */
+      .tabs {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tab-button {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .popup-content {
+        padding: 20px;
+      }
+
+      .popup-content h3 {
+        font-size: 24px;
+      }
+
+      .popup-content p {
+        font-size: 18px;
+      }
     }
 
     /* Animation for the Hero Section */
@@ -348,14 +371,14 @@
     <p>If you have any questions or would like to get in touch, please feel free to reach out to +91 7793905951</p>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer --> 
   <footer>
     <p>&copy; 2025 Sunaina Beauty Care</p>
   </footer>
 
   <script>
     // Example data for products, treatments, and services
-const products = [
+    const products = [
   { name: 'Hair Oil', description: 'Ayurvedic oils for hair & scalp health ', image: 'images/products/product1.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
   { name: 'Hair Protein Pack', description: 'Hair Booster', image: 'images/products/product2.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
   { name: 'Hair serum', description: 'Glow and shiny hair.', image: 'images/products/product3.jpg', detailedInfo: 'Provides instant relief for dry and sensitive skin.' },
@@ -402,58 +425,78 @@ const services = [
 
 ];
 
-    function createSubTabs(data, containerId) {
+  
+    function generateSubTabs(items, containerId) {
       const container = document.getElementById(containerId);
-      data.forEach((item) => {
-        const button = document.createElement('button');
-        button.classList.add('sub-tab');
-        button.innerHTML = `<img src="${item.image}" alt="${item.name}"><h4>${item.name}</h4><p>${item.description}</p>`;
-        button.addEventListener('click', () => openPopup(item));
-        container.appendChild(button);
+      container.innerHTML = '';
+      items.forEach(item => {
+        const subTab = document.createElement('div');
+        subTab.classList.add('sub-tab');
+        subTab.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h4>${item.name}</h4>
+          <p>${item.description}</p>
+        `;
+        subTab.addEventListener('click', () => showPopup(item));
+        container.appendChild(subTab);
       });
     }
-
-    function openPopup(item) {
-      const popup = document.getElementById('popup-modal');
-      const popupTitle = document.getElementById('popup-title');
-      const popupDescription = document.getElementById('popup-description');
-      const popupImage = document.getElementById('popup-image');
-
-      popupTitle.textContent = item.name;
-      popupDescription.textContent = item.detailedInfo;
-      popupImage.src = item.image;
-      popupImage.alt = item.name;
-      popup.style.display = 'flex';
+  
+    function showPopup(item) {
+      const modal = document.getElementById('popup-modal');
+      document.getElementById('popup-title').textContent = item.name;
+      document.getElementById('popup-image').src = item.image;
+      document.getElementById('popup-description').textContent = item.detailedInfo;
+      modal.style.display = 'flex';
     }
-
+  
     document.getElementById('close-popup').addEventListener('click', () => {
       document.getElementById('popup-modal').style.display = 'none';
     });
-
-    document.getElementById('popup-modal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('popup-modal')) {
-        document.getElementById('popup-modal').style.display = 'none';
+  
+    // Function to handle tab switching
+    function switchTab(tabName) {
+      // Hide all tab panels
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      tabPanels.forEach(panel => panel.classList.remove('active'));
+  
+      // Show the active tab panel
+      const activePanel = document.getElementById(tabName);
+      activePanel.classList.add('active');
+  
+      // Remove the 'active' class from all tab buttons
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(button => button.classList.remove('active'));
+  
+      // Add the 'active' class to the clicked tab button
+      const activeButton = document.querySelector(`[data-tab="${tabName}"]`);
+      activeButton.classList.add('active');
+  
+      // Load the content for the selected tab
+      if (tabName === 'products') {
+        generateSubTabs(products, 'product-sub-tabs');
+      } else if (tabName === 'treatments') {
+        generateSubTabs(treatments, 'treatment-sub-tabs');
+      } else if (tabName === 'services') {
+        generateSubTabs(services, 'service-sub-tabs');
       }
-    });
-
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const selectedTab = button.dataset.tab;
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabPanels.forEach(panel => panel.classList.remove('active'));
-        button.classList.add('active');
-        document.getElementById(selectedTab).classList.add('active');
+    }
+  
+    // Initialize with the products tab as active
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set the initial active tab
+      switchTab('products');
+  
+      // Add event listeners to the tab buttons
+      const tabButtons = document.querySelectorAll('.tab-button');
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabName = button.getAttribute('data-tab');
+          switchTab(tabName);
+        });
       });
     });
-
-    window.onload = () => {
-      createSubTabs(products, 'product-sub-tabs');
-      createSubTabs(treatments, 'treatment-sub-tabs');
-      createSubTabs(services, 'service-sub-tabs');
-    };
   </script>
+  
 </body>
 </html>
