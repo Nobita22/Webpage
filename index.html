@@ -100,6 +100,7 @@
       gap: 30px;
       margin: 0 auto;
       max-width: 100%;
+      flex-wrap: wrap;
     }
 
     .tab-button {
@@ -111,6 +112,7 @@
       border: none;
       border-radius: 10px;
       transition: background-color 0.3s, transform 0.2s;
+      margin-bottom: 15px;
     }
 
     .tab-button:hover {
@@ -286,6 +288,30 @@
       }
     }
 
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .catalog h2 {
+        font-size: 36px;
+      }
+
+      .sub-tabs {
+        padding: 0;
+        margin-top: 15px;
+      }
+
+      .sub-tab {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+
     /* Animation for the Hero Section */
     @keyframes fadeIn {
       0% {
@@ -354,29 +380,52 @@
     <div class="popup-content">
       <button id="close-popup" class="close-btn">&times;</button>
       <h3 id="popup-title"></h3>
-      <img id="popup-image" src="" alt="" style="max-width: 100%; border-radius: 5px; margin-bottom: 15px;">
+      <img id="popup-image" src="" alt="" style="max-width: 100%; border-radius: 5px; margin-bottom: 20px;">
       <p id="popup-description"></p>
     </div>
   </div>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <h2>About Us</h2>
-    <p>At Sunaina Beauty Care, we believe in the power of natural beauty and self-care. We provide high-quality products and services to enhance your radiance from within.</p>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="send-email" class="contact">
-    <h2>Contact Us</h2>
-    <p>If you have any questions or would like to get in touch, please feel free to reach out to +91 7793905951</p>
-  </section>
-
-  <!-- Footer --> 
+  <!-- Footer Section -->
   <footer>
-    <p>&copy; 2025 Sunaina Beauty Care</p>
+    <p>© 2025 Sunaina Beauty Care. All rights reserved.</p>
   </footer>
 
   <script>
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+        const selectedTab = document.getElementById(button.dataset.tab);
+        selectedTab.classList.add('active');
+      });
+    });
+
+    // Popup functionality
+    const popupModal = document.getElementById('popup-modal');
+    const closePopup = document.getElementById('close-popup');
+
+    closePopup.addEventListener('click', () => {
+      popupModal.style.display = 'none';
+    });
+
+    function showPopup(title, image, description) {
+      document.getElementById('popup-title').textContent = title;
+      document.getElementById('popup-image').src = image;
+      document.getElementById('popup-description').textContent = description;
+      popupModal.style.display = 'flex';
+    }
+
+    // Example: Populate Products, Treatments, and Services
+    const productSubTabs = document.getElementById('product-sub-tabs');
+    const treatmentSubTabs = document.getElementById('treatment-sub-tabs');
+    const serviceSubTabs = document.getElementById('service-sub-tabs');
+
     // Example data for products, treatments, and services
     const products = [
   { name: 'Hair Oil', description: 'Ayurvedic oils for hair & scalp health ', image: 'images/products/product1.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
@@ -425,9 +474,8 @@ const services = [
 
 ];
 
-  
-    function generateSubTabs(items, containerId) {
-      const container = document.getElementById(containerId);
+
+    function createSubTabs(container, items) {
       container.innerHTML = '';
       items.forEach(item => {
         const subTab = document.createElement('div');
@@ -435,68 +483,17 @@ const services = [
         subTab.innerHTML = `
           <img src="${item.image}" alt="${item.name}">
           <h4>${item.name}</h4>
-          <p>${item.description}</p>
         `;
-        subTab.addEventListener('click', () => showPopup(item));
+        subTab.addEventListener('click', () => {
+          showPopup(item.name, item.image, item.description);
+        });
         container.appendChild(subTab);
       });
     }
-  
-    function showPopup(item) {
-      const modal = document.getElementById('popup-modal');
-      document.getElementById('popup-title').textContent = item.name;
-      document.getElementById('popup-image').src = item.image;
-      document.getElementById('popup-description').textContent = item.detailedInfo;
-      modal.style.display = 'flex';
-    }
-  
-    document.getElementById('close-popup').addEventListener('click', () => {
-      document.getElementById('popup-modal').style.display = 'none';
-    });
-  
-    // Function to handle tab switching
-    function switchTab(tabName) {
-      // Hide all tab panels
-      const tabPanels = document.querySelectorAll('.tab-panel');
-      tabPanels.forEach(panel => panel.classList.remove('active'));
-  
-      // Show the active tab panel
-      const activePanel = document.getElementById(tabName);
-      activePanel.classList.add('active');
-  
-      // Remove the 'active' class from all tab buttons
-      const tabButtons = document.querySelectorAll('.tab-button');
-      tabButtons.forEach(button => button.classList.remove('active'));
-  
-      // Add the 'active' class to the clicked tab button
-      const activeButton = document.querySelector(`[data-tab="${tabName}"]`);
-      activeButton.classList.add('active');
-  
-      // Load the content for the selected tab
-      if (tabName === 'products') {
-        generateSubTabs(products, 'product-sub-tabs');
-      } else if (tabName === 'treatments') {
-        generateSubTabs(treatments, 'treatment-sub-tabs');
-      } else if (tabName === 'services') {
-        generateSubTabs(services, 'service-sub-tabs');
-      }
-    }
-  
-    // Initialize with the products tab as active
-    document.addEventListener('DOMContentLoaded', () => {
-      // Set the initial active tab
-      switchTab('products');
-  
-      // Add event listeners to the tab buttons
-      const tabButtons = document.querySelectorAll('.tab-button');
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const tabName = button.getAttribute('data-tab');
-          switchTab(tabName);
-        });
-      });
-    });
+
+    createSubTabs(productSubTabs, products);
+    createSubTabs(treatmentSubTabs, treatments);
+    createSubTabs(serviceSubTabs, services);
   </script>
-  
 </body>
 </html>
