@@ -2,60 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sunaina Beauty Care</title>
   <style>
-    /* General Styles */
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Arial', sans-serif;
       background-color: #1c1c1c;
-      margin: 0;
-      padding: 0;
       color: white;
     }
-
     a {
       text-decoration: none;
       color: inherit;
     }
-
     header {
-      background-color: #9b4dca; /* Purple */
-      padding: 20px;
-      color: white;
+      background-color: #9b4dca;
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-
-    header .logo {
-      font-size: 28px;
+    .logo {
+      font-size: 26px;
       font-weight: bold;
       font-family: 'Cursive', sans-serif;
+      color: white;
+      letter-spacing: 1px;
     }
-
-    header ul {
+    nav {
+      display: flex;
+    }
+    nav ul {
       list-style: none;
       display: flex;
-      gap: 30px;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
     }
-
-    header ul li {
-      display: inline-block;
-    }
-
-    header ul li a {
-      color: white;
-      font-size: 18px;
+    nav ul li a {
+      font-size: 17px;
       font-weight: 500;
-      transition: color 0.3s;
+      color: white;
+      transition: color 0.3s ease;
     }
-
-    header ul li a:hover {
+    nav ul li a:hover {
       color: #ff66b2;
     }
 
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+    }
     .hero {
       background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-bg.jpg');
       background-size: cover;
@@ -64,14 +73,12 @@
       padding: 120px 20px;
       background-position: center;
     }
-
     .hero h1 {
       font-size: 56px;
       font-family: 'Cursive', sans-serif;
       color: #ff66b2;
       animation: fadeIn 2s ease-in-out;
     }
-
     .hero p {
       font-size: 22px;
       margin-top: 20px;
@@ -79,30 +86,22 @@
       max-width: 600px;
       margin: 20px auto;
     }
-
-    /* Catalog Section */
     .catalog {
       padding: 60px 20px;
       text-align: center;
       background-color: #2c2c2c;
     }
-
     .catalog h2 {
       font-size: 42px;
       margin-bottom: 30px;
       color: #ff66b2;
     }
-
-    /* Tabs */
     .tabs {
       display: flex;
       justify-content: center;
       gap: 30px;
-      margin: 0 auto;
-      max-width: 100%;
       flex-wrap: wrap;
     }
-
     .tab-button {
       background-color: #9b4dca;
       color: white;
@@ -114,40 +113,30 @@
       transition: background-color 0.3s, transform 0.2s;
       margin-bottom: 15px;
     }
-
     .tab-button:hover {
       background-color: #ff66b2;
       transform: scale(1.05);
     }
-
     .tab-button.active {
       background-color: #ff66b2;
     }
-
     .tab-content {
       margin-top: 50px;
     }
-
     .tab-panel {
       display: none;
     }
-
     .tab-panel.active {
       display: block;
     }
-
-    /* Sub-tabs for horizontal scroll */
     .sub-tabs {
       display: flex;
       justify-content: flex-start;
       gap: 30px;
       margin-top: 30px;
-      flex-wrap: nowrap;
       overflow-x: auto;
       padding-bottom: 15px;
-      max-width: 100%;
     }
-
     .sub-tab {
       background-color: #9b4dca;
       color: white;
@@ -162,18 +151,14 @@
       flex-shrink: 0;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
-
     .sub-tab img {
       max-width: 100%;
       border-radius: 10px;
     }
-
     .sub-tab:hover {
       background-color: #ff66b2;
       transform: scale(1.05);
     }
-
-    /* Popup Modal */
     .popup-modal {
       display: none;
       position: fixed;
@@ -186,7 +171,6 @@
       align-items: center;
       z-index: 1000;
     }
-
     .popup-content {
       background-color: #333;
       color: white;
@@ -195,8 +179,8 @@
       max-width: 600px;
       width: 90%;
       text-align: center;
+      position: relative;
     }
-
     .close-btn {
       background-color: transparent;
       color: white;
@@ -207,18 +191,14 @@
       top: 15px;
       right: 15px;
     }
-
     .popup-content h3 {
       font-size: 26px;
       margin-bottom: 20px;
     }
-
     .popup-content p {
       font-size: 20px;
       margin-bottom: 20px;
     }
-
-    /* Footer */
     footer {
       text-align: center;
       padding: 25px;
@@ -226,106 +206,27 @@
       color: white;
       font-size: 16px;
     }
-
     .about, .contact {
       padding: 60px 20px;
       text-align: center;
       background-color: #2c2c2c;
     }
-
     .about h2, .contact h2 {
       font-size: 42px;
       color: #ff66b2;
       margin-bottom: 20px;
     }
-
     .about p, .contact p {
       font-size: 20px;
       color: #d1d1d1;
     }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .sub-tabs {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .sub-tab {
-        width: 100%;
-        margin-bottom: 15px;
-      }
-
-      .hero h1 {
-        font-size: 40px;
-      }
-
-      .hero p {
-        font-size: 18px;
-      }
-
-      /* Stack tabs vertically on mobile */
-      .tabs {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .tab-button {
-        width: 100%;
-        padding: 15px;
-      }
-
-      .popup-content {
-        padding: 20px;
-      }
-
-      .popup-content h3 {
-        font-size: 24px;
-      }
-
-      .popup-content p {
-        font-size: 18px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .catalog h2 {
-        font-size: 36px;
-      }
-
-      .sub-tabs {
-        padding: 0;
-        margin-top: 15px;
-      }
-
-      .sub-tab {
-        width: 100%;
-        font-size: 14px;
-      }
-    }
-
-    /* Animation for the Hero Section */
     @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
-
   </style>
 </head>
 <body>
-  <!-- Header and Navigation -->
   <header>
     <div class="logo">Sunaina Beauty Care</div>
     <nav>
@@ -333,49 +234,40 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#catalog">Catalog</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#send-email">Contact</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    
   </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
+  <div id="home" class="hero">
     <h1>Welcome to Sunaina Beauty Care</h1>
     <p>Your beauty, our passion. Discover the best in skincare and beauty products.</p>
-  </section>
+  </div>
 
-  <!-- Catalog Section -->
-  <section id="catalog" class="catalog">
+  <div id="catalog" class="catalog">
     <h2>Beauty Catalog</h2>
     <div class="tabs">
       <button class="tab-button active" data-tab="products">Products</button>
       <button class="tab-button" data-tab="treatments">Treatments</button>
       <button class="tab-button" data-tab="services">Services</button>
     </div>
-
     <div class="tab-content">
       <div id="products" class="tab-panel active">
         <h3>Our Products</h3>
-        <div class="sub-tabs" id="product-sub-tabs">
-          <!-- Product items will be dynamically loaded here -->
-        </div>
+        <div class="sub-tabs" id="product-sub-tabs"></div>
       </div>
       <div id="treatments" class="tab-panel">
         <h3>Beauty Treatments</h3>
-        <div class="sub-tabs" id="treatment-sub-tabs">
-          <!-- Treatment items will be dynamically loaded here -->
-        </div>
+        <div class="sub-tabs" id="treatment-sub-tabs"></div>
       </div>
       <div id="services" class="tab-panel">
         <h3>Beauty Services</h3>
-        <div class="sub-tabs" id="service-sub-tabs">
-          <!-- Service items will be dynamically loaded here -->
-        </div>
+        <div class="sub-tabs" id="service-sub-tabs"></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Modal Popup for Detailed Info -->
   <div id="popup-modal" class="popup-modal">
     <div class="popup-content">
       <button id="close-popup" class="close-btn">&times;</button>
@@ -384,14 +276,23 @@
       <p id="popup-description"></p>
     </div>
   </div>
-
-  <!-- Footer Section -->
+  <div id="about">
+    <h2>About Us</h2>
+    <p>Sunaina Beauty Care is committed to providing natural and Ayurvedic beauty solutions that enhance your inner and outer glow. With a passion for wellness and a dedication to authenticity, we bring you a curated range of products and treatments rooted in ancient traditions and modern science.</p>
+  </div>
+  <div id="contact">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! Whether you have questions about our products, services, or need personalized recommendations, feel free to reach out.</p>
+    <p><strong>Email:</strong> care@sunainabeauty.com</p>
+    <p><strong>Phone:</strong> +91-9876543210</p>
+    <p><strong>Address:</strong> 123 Blossom Lane, Wellness City, India</p>
+  </div>
+  
   <footer>
     <p>© 2025 Sunaina Beauty Care. All rights reserved.</p>
   </footer>
 
   <script>
-    // Tab switching functionality
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
@@ -399,14 +300,12 @@
       button.addEventListener('click', () => {
         tabButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-
         tabPanels.forEach(panel => panel.classList.remove('active'));
         const selectedTab = document.getElementById(button.dataset.tab);
         selectedTab.classList.add('active');
       });
     });
 
-    // Popup functionality
     const popupModal = document.getElementById('popup-modal');
     const closePopup = document.getElementById('close-popup');
 
@@ -414,19 +313,13 @@
       popupModal.style.display = 'none';
     });
 
-    function showPopup(title, image, description) {
+    function showPopup(title, image, detailedInfo) {
       document.getElementById('popup-title').textContent = title;
       document.getElementById('popup-image').src = image;
-      document.getElementById('popup-description').textContent = description;
+      document.getElementById('popup-image').alt = title;
+      document.getElementById('popup-description').textContent = detailedInfo;
       popupModal.style.display = 'flex';
     }
-
-    // Example: Populate Products, Treatments, and Services
-    const productSubTabs = document.getElementById('product-sub-tabs');
-    const treatmentSubTabs = document.getElementById('treatment-sub-tabs');
-    const serviceSubTabs = document.getElementById('service-sub-tabs');
-
-    // Example data for products, treatments, and services
     const products = [
   { name: 'Hair Oil', description: 'Ayurvedic oils for hair & scalp health ', image: 'images/products/product1.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
   { name: 'Hair Protein Pack', description: 'Hair Booster', image: 'images/products/product2.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
@@ -473,8 +366,6 @@ const services = [
   { name: 'Makeup Application', description: 'Professional makeup application for any occasion.', image: 'images/services/service8.jpg', detailedInfo: 'Get a perfect makeup look for your event with our professional makeup artists.' },
 
 ];
-
-
     function createSubTabs(container, items) {
       container.innerHTML = '';
       items.forEach(item => {
@@ -485,15 +376,15 @@ const services = [
           <h4>${item.name}</h4>
         `;
         subTab.addEventListener('click', () => {
-          showPopup(item.name, item.image, item.description);
+          showPopup(item.name, item.image, item.detailedInfo);
         });
         container.appendChild(subTab);
       });
     }
 
-    createSubTabs(productSubTabs, products);
-    createSubTabs(treatmentSubTabs, treatments);
-    createSubTabs(serviceSubTabs, services);
+    createSubTabs(document.getElementById('product-sub-tabs'), products);
+    createSubTabs(document.getElementById('treatment-sub-tabs'), treatments);
+    createSubTabs(document.getElementById('service-sub-tabs'), services);
   </script>
 </body>
 </html>
