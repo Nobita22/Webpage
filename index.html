@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sunaina Beauty Care</title>
   <style>
-    html { scroll-behavior: smooth; }
+
+
+    html { scroll-behavior: smooth; 
+      font-size: 16px; /* Reset default font size for better scaling */
+    }
     body {
       font-family: 'Arial', sans-serif;
       background-color: #1c1c1c;
       color: white;
+      font-size: 1rem; /* Use relative units to maintain consistent scaling */
     }
     a {
       text-decoration: none;
@@ -29,15 +34,6 @@ header {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.logo {
-  font-size: 26px;
-  font-weight: bold;
-  font-family: 'Cursive', sans-serif;
-  color: white;
-  letter-spacing: 1px;
-}
-
-/* Hamburger Button Styling */
 .hamburger {
   display: none;
   background: none;
@@ -55,12 +51,116 @@ header {
   transition: all 0.3s;
 }
 
-nav ul {
-  list-style: none;
+.logo-container {
   display: flex;
-  gap: 25px;
-  margin: 0;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  width: 40px; /* Adjust based on your logo size */
+  height: 40px;
+  object-fit: cover;
+}
+
+.logo-text {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: 'Cursive', sans-serif;
+  color: white;
+  letter-spacing: 1px;
+}
+
+/* Remove list dots */
+nav ul {
+  list-style-type: none;
   padding: 0;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    display: none; /* Hide menu by default */
+    width: 100%;
+    text-align: left;
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li a {
+    font-size: 16px;
+    padding: 10px;
+    display: block;
+    color: white;
+    background-color: #9b4dca;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  nav ul li a:hover {
+    background-color: #ff66b2;
+  }
+}
+
+/* Show navigation on menu toggle */
+nav.open ul {
+  display: flex;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Hamburger Animation for Menu Toggle */
+.hamburger.open .line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  width: 40px; /* Adjust based on your logo size */
+  height: 40px;
+  object-fit: cover;
+}
+
+.logo-text {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: 'Cursive', sans-serif;
+  color: white;
+  letter-spacing: 1px;
 }
 
 /* Mobile Responsive */
@@ -129,174 +229,263 @@ nav.open ul {
 
 
     .hero {
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-bg.jpg');
-      background-size: cover;
+      background-color: #2c2c2c;
+      padding: 80px 20px;
       text-align: center;
-      color: white;
-      padding: 120px 20px;
-      background-position: center;
     }
     .hero h1 {
-      font-size: 56px;
-      font-family: 'Cursive', sans-serif;
+      font-size: 48px;
       color: #ff66b2;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .hero p {
-      font-size: 22px;
-      margin-top: 20px;
-      color: #d1d1d1;
-      max-width: 600px;
-      margin: 20px auto;
     }
     .catalog {
       padding: 60px 20px;
-      text-align: center;
       background-color: #2c2c2c;
-    }
-    .catalog h2 {
-      font-size: 42px;
-      margin-bottom: 30px;
-      color: #ff66b2;
+      text-align: center;
     }
     .tabs {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 20px;
+      margin-bottom: 30px;
       flex-wrap: wrap;
     }
     .tab-button {
-      background-color: #9b4dca;
-      color: white;
-      padding: 15px 30px;
-      font-size: 20px;
-      cursor: pointer;
+      padding: 12px 25px;
+      background: #9b4dca;
       border: none;
-      border-radius: 10px;
-      transition: background-color 0.3s, transform 0.2s;
-      margin-bottom: 15px;
-    }
-    .tab-button:hover {
-      background-color: #ff66b2;
-      transform: scale(1.05);
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
     }
     .tab-button.active {
       background-color: #ff66b2;
     }
     .tab-content {
-      margin-top: 50px;
-    }
-    .tab-panel {
       display: none;
     }
-    .tab-panel.active {
+    .tab-content.active {
       display: block;
     }
+
     .sub-tabs {
       display: flex;
-      justify-content: flex-start;
-      gap: 30px;
-      margin-top: 30px;
       overflow-x: auto;
-      padding-bottom: 15px;
+      padding: 10px 0;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+    }
+    .sub-tabs::-webkit-scrollbar {
+      height: 8px;
+    }
+    .sub-tabs::-webkit-scrollbar-thumb {
+      background: #ff66b2;
+      border-radius: 10px;
     }
     .sub-tab {
-      background-color: #9b4dca;
-      color: white;
+      flex: 0 0 auto;
+      background-color: #444;
       padding: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
       border-radius: 10px;
-      transition: background-color 0.3s, transform 0.2s;
       width: 220px;
+      scroll-snap-align: start;
       text-align: center;
-      flex-shrink: 0;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .sub-tab img {
-      max-width: 100%;
-      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
     }
     .sub-tab:hover {
       background-color: #ff66b2;
       transform: scale(1.05);
     }
-    .popup-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
+    .sub-tab img {
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+      border-radius: 8px;
+      object-fit: cover;
     }
-    .popup-content {
-      background-color: #333;
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
+
+    .about, .contact {
+      padding: 60px 20px;
+      background-color: #1c1c1c;
       text-align: center;
-      position: relative;
-    }
-    .close-btn {
-      background-color: transparent;
-      color: white;
-      font-size: 35px;
-      border: none;
-      cursor: pointer;
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-    .popup-content h3 {
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
-    .popup-content p {
-      font-size: 20px;
-      margin-bottom: 20px;
     }
     footer {
       text-align: center;
-      padding: 25px;
-      background-color: #1c1c1c;
-      color: white;
-      font-size: 16px;
+      padding: 20px;
+      background-color: #000;
+      font-size: 14px;
     }
-    .about, .contact {
-      padding: 60px 20px;
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .popup-content {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
       text-align: center;
-      background-color: #2c2c2c;
     }
-    .about h2, .contact h2 {
-      font-size: 42px;
-      color: #ff66b2;
-      margin-bottom: 20px;
-    }
-    .about p, .contact p {
+    .close-btn {
+      float: right;
       font-size: 20px;
-      color: #d1d1d1;
+      cursor: pointer;
     }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+    .qty-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .qty-button {
+      padding: 5px 10px;
+      font-size: 18px;
+      background-color: #ff66b2;
+      border: none;
+      color: white;
+      border-radius: 5px;
+    }
+    .buy-now {
+      background-color: #9b4dca;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .checkout-btn {
+      background-color: #ff66b2;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .checkout-list {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+    .checkout-item {
+      padding: 10px;
+      background-color: #444;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+/* Position the cart button fixed at the bottom center of the screen */
+.cart-button {
+  background-color: #ff66b2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  position: fixed; /* Fixed position */
+  bottom: 20px; /* 20px from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Align exactly at the center */
+  z-index: 1000; /* Make sure it appears on top of other elements */
+}
+
+@media (max-width: 768px) {
+  .cart-button {
+    display: block; /* Show the cart button on mobile when there are items */
+  }
+}
+    .total-price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    #checkout-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #checkout-popup .popup-content {
+      background: #2c2c2c;
+      padding: 30px;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+    }
+    #checkout-popup input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #checkout-popup h4 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    #checkout-popup .address-details {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    #checkout-popup .buy-now {
+      width: 100%;
+      padding: 15px;
+      background-color: #ff66b2;
+      color: white;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff66b2;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 16px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #toast.show {
+      display: block;
+      opacity: 1;
+      animation: fadeout 4s forwards;
+    }
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Sunaina Beauty Care</div>
     <button class="hamburger" id="hamburger-btn">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
     </button>
+    <div class="logo-container">
+      <img src="images/SunainaLogo.jpg" alt="Logo" class="logo-img">
+      <span class="logo-text">Sunaina Beauty Care</span>
+    </div>
     <nav>
       <ul>
         <li><a href="#home">Home</a></li>
@@ -306,10 +495,9 @@ nav.open ul {
       </ul>
     </nav>
   </header>
-  
 
   <div id="home" class="hero">
-    <h1>Welcome to Sunaina Beauty Care</h1>
+    <h1>Sunaina Beauty Care</h1>
     <p>Your beauty, our passion. Discover the best in skincare and beauty products.</p>
   </div>
 
@@ -320,146 +508,200 @@ nav.open ul {
       <button class="tab-button" data-tab="treatments">Treatments</button>
       <button class="tab-button" data-tab="services">Services</button>
     </div>
-    <div class="tab-content">
-      <div id="products" class="tab-panel active">
-        <h3>Our Products</h3>
-        <div class="sub-tabs" id="product-sub-tabs"></div>
-      </div>
-      <div id="treatments" class="tab-panel">
-        <h3>Beauty Treatments</h3>
-        <div class="sub-tabs" id="treatment-sub-tabs"></div>
-      </div>
-      <div id="services" class="tab-panel">
-        <h3>Beauty Services</h3>
-        <div class="sub-tabs" id="service-sub-tabs"></div>
-      </div>
+    <div id="products-content" class="tab-content active">
+      <div class="sub-tabs" id="product-sub-tabs"></div>
+    </div>
+    <div id="treatments-content" class="tab-content">
+      <div class="sub-tabs" id="treatment-sub-tabs"></div>
+    </div>
+    <div id="services-content" class="tab-content">
+      <div class="sub-tabs" id="service-sub-tabs"></div>
     </div>
   </div>
 
-  <div id="popup-modal" class="popup-modal">
-    <div class="popup-content">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <h3 id="popup-title"></h3>
-      <img id="popup-image" src="" alt="" style="max-width: 100%; border-radius: 5px; margin-bottom: 20px;">
-      <p id="popup-description"></p>
-    </div>
-  </div>
-  <div id="about">
+  <div id="about" class="about">
     <h2>About Us</h2>
-    <p>Sunaina Beauty Care is committed to providing natural and Ayurvedic beauty solutions that enhance your inner and outer glow. With a passion for wellness and a dedication to authenticity, we bring you a curated range of products and treatments rooted in ancient traditions and modern science.</p>
+    <p>We specialize in Ayurvedic and natural beauty treatments using the finest ingredients for glowing skin and healthy hair.</p>
   </div>
-  <div id="contact">
+
+  <div id="contact" class="contact">
     <h2>Contact Us</h2>
-    <p>We’d love to hear from you! Whether you have questions about our products, services, or need personalized recommendations, feel free to reach out.</p>
-    <p><strong>Email:</strong> care@sunainabeauty.com</p>
-    <p><strong>Phone:</strong> +91-9876543210</p>
-    <p><strong>Address:</strong> 123 Blossom Lane, Wellness City, India</p>
+    <p>Email: support@sunainabeautycare.com</p>
+    <p>Phone: 123-456-7890</p>
   </div>
-  
+
   <footer>
     <p>© 2025 Sunaina Beauty Care. All rights reserved.</p>
   </footer>
 
+  <button class="cart-button" id="cart-button" onclick="showCheckout()">View Cart</button>
+
+  <div class="popup" id="popup-modal">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <h3 id="popup-title"></h3>
+      <img id="popup-image" src="" alt="" style="width:100%; border-radius:10px;" />
+      <p id="popup-description"></p>
+      <p id="popup-price"></p>
+      <div class="qty-controls">
+        <button class="qty-button" onclick="changeQtyInPopup(-1)">-</button>
+        <span id="popup-qty">0</span>
+        <button class="qty-button" onclick="changeQtyInPopup(1)">+</button>
+      </div>
+      <button class="buy-now" onclick="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="popup" id="checkout-popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closeCheckout()">×</span>
+      <h3>Checkout</h3>
+      <ul class="checkout-list" id="checkout-list"></ul>
+      <p class="total-price" id="total-price">Total: $0</p>
+
+      <div class="address-details">
+        <h4>Delivery Address</h4>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your full name" required><br><br>
+
+        <label for="address">Address Line 1:</label>
+        <input type="text" id="address" placeholder="Street address" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" placeholder="Enter city" required><br><br>
+
+        <label for="zip">Postal Code:</label>
+        <input type="text" id="zip" placeholder="Enter postal code" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" placeholder="Enter phone number" required><br><br>
+      </div>
+
+      <button class="buy-now" onclick="confirmCheckout()">Confirm Purchase</button>
+    </div>
+  </div>
+
+  <div id="toast">Purchase confirmed!</div>
+
   <script>
+    let cart = [];
+
+    const products = [
+      { name: 'Hair Oil', description: 'Ayurvedic oils for hair & scalp health', price: 10, image: 'images/products/product1.jpg' },
+      { name: 'Face Cream', description: 'Natural cream for glowing skin', price: 15, image: 'images/products/product2.jpg' },
+      { name: 'Body Lotion', description: 'Moisturizing lotion with natural oils', price: 12, image: 'images/products/product3.jpg' },
+      { name: 'Herbal Shampoo', description: 'Shampoo made from Ayurvedic herbs', price: 13, image: 'images/products/product4.jpg' },
+      { name: 'Lip Balm', description: 'Organic lip balm for soft, hydrated lips', price: 5, image: 'images/products/product5.jpg' },
+      { name: 'Sunscreen', description: 'Natural sun protection for skin', price: 18, image: 'images/products/product6.jpg' },
+      { name: 'Face Pack', description: 'Detoxifying face mask for clear skin', price: 8, image: 'images/products/product7.jpg' }
+    ];
+
+    function showPopup(index) {
+      const product = products[index];
+      document.getElementById('popup-title').textContent = product.name;
+      document.getElementById('popup-description').textContent = product.description;
+      document.getElementById('popup-price').textContent = `$${product.price}`;
+      document.getElementById('popup-image').src = product.image;
+      document.getElementById('popup-qty').textContent = 0;
+      document.getElementById('popup-modal').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popup-modal').style.display = 'none';
+    }
+
+    function changeQtyInPopup(amount) {
+      const qtyElem = document.getElementById('popup-qty');
+      let qty = parseInt(qtyElem.textContent);
+      qty = Math.max(0, qty + amount);
+      qtyElem.textContent = qty;
+    }
+
+    function addToCart() {
+      const qty = parseInt(document.getElementById('popup-qty').textContent);
+      if (qty > 0) {
+        const product = products[cart.length];
+        cart.push({ ...product, quantity: qty });
+      }
+      closePopup();
+      updateCart();
+    }
+
+    function updateCart() {
+  let total = 0;
+  const checkoutList = document.getElementById('checkout-list');
+  checkoutList.innerHTML = '';
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.classList.add('checkout-item');
+    li.textContent = `${item.name} - ${item.quantity} x $${item.price}`;
+    checkoutList.appendChild(li);
+    total += item.price * item.quantity;
+  });
+  document.getElementById('total-price').textContent = `Total: $${total}`;
+  if (cart.length > 0) {
+    document.getElementById('cart-button').style.display = 'block'; // Show the cart button when there are items
+  }
+}
+
+
+    function showCheckout() {
+      document.getElementById('checkout-popup').style.display = 'flex';
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkout-popup').style.display = 'none';
+    }
+
+    function confirmCheckout() {
+      const name = document.getElementById('name').value;
+      const address = document.getElementById('address').value;
+      const city = document.getElementById('city').value;
+      const zip = document.getElementById('zip').value;
+      const phone = document.getElementById('phone').value;
+
+      const message = `Thanks for your purchase, ${name}! Delivery to ${address}, ${city} - ${zip}.`;
+      showToast(message);
+      cart = [];
+      updateCart();
+      closeCheckout();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 10000);
+    }
+
+    // Generate Product Sub-tabs
+    const productSubTabs = document.getElementById('product-sub-tabs');
+    products.forEach((product, index) => {
+      const div = document.createElement('div');
+      div.classList.add('sub-tab');
+      div.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <p>$${product.price}</p>
+      `;
+      div.addEventListener('click', () => showPopup(index));
+      productSubTabs.appendChild(div);
+    });
+
+    // Tab switching
     const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-const nav = document.querySelector('nav');
-
-hamburgerBtn.addEventListener('click', () => {
-  nav.classList.toggle('open');
-  hamburgerBtn.classList.toggle('open');
-});
-
     tabButtons.forEach(button => {
       button.addEventListener('click', () => {
-        tabButtons.forEach(btn => btn.classList.remove('active'));
+        const activeTab = button.getAttribute('data-tab');
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        tabPanels.forEach(panel => panel.classList.remove('active'));
-        const selectedTab = document.getElementById(button.dataset.tab);
-        selectedTab.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById(`${activeTab}-content`).classList.add('active');
       });
     });
-
-    const popupModal = document.getElementById('popup-modal');
-    const closePopup = document.getElementById('close-popup');
-
-    closePopup.addEventListener('click', () => {
-      popupModal.style.display = 'none';
-    });
-
-    function showPopup(title, image, detailedInfo) {
-      document.getElementById('popup-title').textContent = title;
-      document.getElementById('popup-image').src = image;
-      document.getElementById('popup-image').alt = title;
-      document.getElementById('popup-description').textContent = detailedInfo;
-      popupModal.style.display = 'flex';
-    }
-    const products = [
-  { name: 'Hair Oil', description: 'Ayurvedic oils for hair & scalp health ', image: 'images/products/product1.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
-  { name: 'Hair Protein Pack', description: 'Hair Booster', image: 'images/products/product2.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Hair serum', description: 'Glow and shiny hair.', image: 'images/products/product3.jpg', detailedInfo: 'Provides instant relief for dry and sensitive skin.' },
-  { name: 'Hair Shampoo with conditioner', description: 'Customised herbal shampoo with conditioner.', image: 'images/products/product4.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
-  { name: 'Hair & Eyebrows Regrowth oils', description: 'For denser hair & eyebrows', image: 'images/products/product9.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
-  { name: 'Unwanted Hair Removal Oils', description: 'Unwanted hair removal without pain and itching.', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Natural Hair Dyes', description: 'Natural and chemical free', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Skin whitening cream', description: 'Total skin repair.', image: 'images/products/product5.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Day cream', description: 'Sunscreen lotion with skin nourishing.', image: 'images/products/product6.jpg', detailedInfo: 'Provides instant relief for dry and sensitive skin.' },
-  { name: 'Night cream', description: 'Total repair face cream with vitamins.', image: 'images/products/product7.jpg', detailedInfo: 'This product helps to brighten your skin with natural ingredients.' },
-  { name: 'Lip balms', description: 'Soft and moisturise lips.', image: 'images/products/product8.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Powder Face Packs', description: 'Instant glow .', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Tan Packs', description: 'Deep tan removal .', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Foot Crack Cream', description: 'Repairs cracked heels.', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Pain Relief Oils', description: 'All muscle pains, back pains and joint pains', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Customised Soaps', description: 'Customised soap based on person.', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Weight Loss Powder', description: 'Healthy weight loss Powder.', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
-  { name: 'Weight Loss Oil', description: 'Healthy weight loss Oil (For External Use Only).', image: 'images/products/product10.jpg', detailedInfo: 'Contains rich moisturizers and vitamins that rejuvenate your skin.' },
- 
-  // Add more products as needed
-];
-
-const treatments = [
-  { name: 'Facial Treatment', description: 'A rejuvenating facial to make your skin glow.', image: 'images/treatments/treatment1.jpg', detailedInfo: 'Includes exfoliation, hydrating mask, and massage to give you glowing skin.' },
-  { name: 'Acne Treatment', description: 'Clears up acne and prevents future breakouts.', image: 'images/treatments/treatment2.jpg', detailedInfo: 'Includes a deep cleanse, acne medication, and soothing mask.' },
-  { name: 'Facial Treatment', description: 'A rejuvenating facial to make your skin glow.', image: 'images/treatments/treatment3.jpg', detailedInfo: 'Includes exfoliation, hydrating mask, and massage to give you glowing skin.' },
-  { name: 'Acne Treatment', description: 'Clears up acne and prevents future breakouts.', image: 'images/treatments/treatment4.jpg', detailedInfo: 'Includes a deep cleanse, acne medication, and soothing mask.' },
-  { name: 'Facial Treatment', description: 'A rejuvenating facial to make your skin glow.', image: 'images/treatments/treatment5.jpg', detailedInfo: 'Includes exfoliation, hydrating mask, and massage to give you glowing skin.' },
-  { name: 'Acne Treatment', description: 'Clears up acne and prevents future breakouts.', image: 'images/treatments/treatment6.jpg', detailedInfo: 'Includes a deep cleanse, acne medication, and soothing mask.' },
-  { name: 'Facial Treatment', description: 'A rejuvenating facial to make your skin glow.', image: 'images/treatments/treatment7.jpg', detailedInfo: 'Includes exfoliation, hydrating mask, and massage to give you glowing skin.' },
-  { name: 'Acne Treatment', description: 'Clears up acne and prevents future breakouts.', image: 'images/treatments/treatment8.jpg', detailedInfo: 'Includes a deep cleanse, acne medication, and soothing mask.' },
-
-];
-
-const services = [
-  { name: 'Skin Care Consultation', description: 'Consult with our skin expert for personalized skincare advice.', image: 'images/services/service1.jpg', detailedInfo: 'A one-on-one consultation to help you choose the best skincare routine for your skin type.' },
-  { name: 'Makeup Application', description: 'Professional makeup application for any occasion.', image: 'images/services/service2.jpg', detailedInfo: 'Get a perfect makeup look for your event with our professional makeup artists.' },
-  { name: 'Skin Care Consultation', description: 'Consult with our skin expert for personalized skincare advice.', image: 'images/services/service3.jpg', detailedInfo: 'A one-on-one consultation to help you choose the best skincare routine for your skin type.' },
-  { name: 'Makeup Application', description: 'Professional makeup application for any occasion.', image: 'images/services/service4.jpg', detailedInfo: 'Get a perfect makeup look for your event with our professional makeup artists.' },
-  { name: 'Skin Care Consultation', description: 'Consult with our skin expert for personalized skincare advice.', image: 'images/services/service5.jpg', detailedInfo: 'A one-on-one consultation to help you choose the best skincare routine for your skin type.' },
-  { name: 'Makeup Application', description: 'Professional makeup application for any occasion.', image: 'images/services/service6.jpg', detailedInfo: 'Get a perfect makeup look for your event with our professional makeup artists.' },
-  { name: 'Skin Care Consultation', description: 'Consult with our skin expert for personalized skincare advice.', image: 'images/services/service7.jpg', detailedInfo: 'A one-on-one consultation to help you choose the best skincare routine for your skin type.' },
-  { name: 'Makeup Application', description: 'Professional makeup application for any occasion.', image: 'images/services/service8.jpg', detailedInfo: 'Get a perfect makeup look for your event with our professional makeup artists.' },
-
-];
-    function createSubTabs(container, items) {
-      container.innerHTML = '';
-      items.forEach(item => {
-        const subTab = document.createElement('div');
-        subTab.classList.add('sub-tab');
-        subTab.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
-          <h4>${item.name}</h4>
-        `;
-        subTab.addEventListener('click', () => {
-          showPopup(item.name, item.image, item.detailedInfo);
-        });
-        container.appendChild(subTab);
-      });
-    }
-
-    createSubTabs(document.getElementById('product-sub-tabs'), products);
-    createSubTabs(document.getElementById('treatment-sub-tabs'), treatments);
-    createSubTabs(document.getElementById('service-sub-tabs'), services);
   </script>
 </body>
 </html>
