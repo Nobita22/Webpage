@@ -1,177 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunaina Beauty Care - Catalog</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sunaina Beauty Care</title>
   <style>
-      * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      background: #f8f8f8;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fdf6f0;
       color: #333;
       scroll-behavior: smooth;
-      overflow-x: hidden; /* Prevent horizontal scroll */
-      width: 100evm;
-    }
-        /* Background animation */
-        @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
     header {
       background: linear-gradient(to right, #5D3A9B, #9B59B6);
-      background-size: 200% 200%;
-      animation: gradientAnimation 5s ease infinite;
       color: white;
-      text-align: center;
-      padding: 3rem 1rem;
-      font-size: 2.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-      position: fixed; /* Fix the header on top */
+      padding: 1rem;
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
       z-index: 1000;
-      box-sizing: border-box; /* Ensure padding doesn't overflow */
     }
     nav {
-      background: #fff;
       display: flex;
       justify-content: center;
       gap: 2rem;
-      padding: 1rem 0;
-      position: sticky;
-      top: 100px; /* Fix the nav below the header */
-      z-index: 1000;
-      transition: background 0.3s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 100%;
-      box-sizing: border-box;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
     }
     nav a {
+      color: white;
       text-decoration: none;
-      color: #5D3A9B;
-      font-weight: 600;
-      position: relative;
-      padding: 0.6rem;
-      transition: color 0.3s ease;
-    }
-    nav a::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 2px;
-      background: #5D3A9B;
-      transition: width 0.3s ease;
-      position: absolute;
-      bottom: -3px;
-      left: 0;
-    }
-    nav a:hover::after {
-      width: 100%;
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
     }
     nav a:hover {
-      color: #9B59B6;
+      text-decoration: underline;
     }
     section {
-      padding: 4rem 1rem;
-      max-width: 100%;
-      margin: auto;
-      animation: fadeIn 0.8s ease-in-out;
-      margin-top: 160px; /* Fix margin so that content is not hidden behind header */
+      padding: 2rem 1rem;
     }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
     .tabs {
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      overflow-x: auto;
+      background: #eee;
+      padding: 0.5rem;
     }
-    .tabs button {
+    .tab {
+      flex: 0 0 auto;
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      background: #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #5D3A9B;
+      color: white;
+    }
+    .section-content {
+      display: none;
+      padding: 1rem 0;
+    }
+    .section-content.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .card img {
+      max-width: 100%;
+      border-radius: 8px;
+      height: 120px;
+      object-fit: cover;
+    }
+    .btn {
       background: #9B59B6;
       color: white;
       border: none;
-      /* padding: 0.8rem 1.8rem; */
-      border-radius: 30px;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-      text-transform: uppercase;
     }
-    .tabs button:hover, .tabs button.active {
-      background: #5D3A9B;
-      transform: scale(1.05);
-    } 
-    .items {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    .item {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      padding: 1.2rem;
-      width: 260px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
-    }
-    .item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-    .item img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-        /* View Cart Button with Rectangle Shape */
-        .cart-button {
+    .cart-btn {
       position: fixed;
       bottom: 20px;
-      right: 20px;
-      background: #9B59B6;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5D3A9B;
       color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      z-index: 999;
       border: none;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      font-size: 1.2rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease;
-      z-index: 9999;
     }
-    .cart-button:hover {
-      transform: scale(1.05);
-    }
-    .cart-button span {
-      margin-left: 10px;
-      font-size: 1rem;
-    }
-
-        /* Modal Styles */
-        .modal {
+    .modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
@@ -179,309 +109,254 @@
       background: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
-      z-index: 10000;
+      z-index: 1000;
+    }
+    .modal.show {
+      display: flex;
     }
     .modal-content {
       background: white;
-      /* padding: 3rem; */
-      border-radius: 12px;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
       width: 90%;
-      max-width: 700px;
       max-height: 90vh;
       overflow-y: auto;
-      position: relative;
-      animation: fadeIn 0.4s ease-in-out;
     }
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    input, textarea {
-      width: 100%;
-      margin: 1rem 0;
-      /* padding: 1rem; */
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-    input:focus, textarea:focus {
-      border-color: #9B59B6;
-    }
-    button {
-      cursor: pointer;
-      /* padding: 0.8rem 1.5rem; */
-      background: #5D3A9B;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #9B59B6;
-    }
-
-    table {
-      width: 100%;
-      margin-top: 2rem;
-      border-collapse: collapse;
-    }
-    th, td {
-      border-bottom: 1px solid #ccc;
-      /* padding: 1rem; */
-      text-align: center;
-    }
-    /* Testimonials & Extras */
-    .extras {
+    .cart-item {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 3rem;
-      margin-top: 4rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .extra-card {
-      background: #f4f0fa;
-      /* padding: 1.8rem; */
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 350px;
-      transition: transform 0.3s ease;
+    .cart-item input {
+      width: 60px;
     }
-    .extra-card:hover {
-      transform: translateY(-8px);
+    .input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
     }
-       /* Responsive Design */
-    @media (max-width: 768px) {
-      /* body {
-        padding-right: 0 !important; 
-        padding-left: 0 !important;
-      } */
-
-      section {
-        /* padding: 2rem 1rem;  */
-      }
-
-      .items, .extras {
-        flex-direction: column;
-        align-items: center;
-      }
-      nav {
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-      .tabs button {
-        /* padding: 0.6rem 1.4rem; */
-        font-size: 1rem;
-      }
-      .cart-button {
-        bottom: 15px;
-        right: 15px;
-        /* padding: 0.8rem 1.6rem; */
-        font-size: 1.1rem;
-      }
-    }
- @media (max-width: 480px) {
-      header {
-        font-size: 2rem;
-        /* padding: 2rem 1rem; */
-      }
-      .cart-button {
-        bottom: 10px;
-        right: 10px;
-        /* padding: 0.7rem 1.4rem; */
-        font-size: 1rem;
-      }
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      display: none;
+      z-index: 2000;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Sunaina Beauty Care</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <header>Sunaina Beauty Care</header>
-  
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  
   <section id="home">
     <h2>Welcome to Sunaina Beauty Care</h2>
-    <p>Discover radiant beauty through natural Ayurvedic products, healing treatments, and expert services crafted for your wellness journey.</p>
-    <div class="extras">
-      <div class="extra-card">
-        <h3>🌿 100% Natural</h3>
-        <p>Our products and treatments are rooted in Ayurvedic principles, ensuring you receive the finest care without harmful chemicals.</p>
-      </div>
-      <div class="extra-card">
-        <h3>💆‍♀️ Expert Services</h3>
-        <p>From soothing facials to rejuvenating massages, we offer personalized services tailored to your beauty and wellness needs.</p>
-      </div>
-    </div>
+    <p>Natural Ayurvedic products, relaxing treatments, and professional beauty services all in one place.</p>
   </section>
-  
+
   <section id="shop">
-    <h2>Shop</h2>
+    <h2>Shop Our Collection</h2>
     <div class="tabs">
-      <button class="active" onclick="showTab('products', this)">Products</button>
-      <button onclick="showTab('treatments', this)">Treatments</button>
-      <button onclick="showTab('services', this)">Services</button>
+      <div class="tab active" onclick="showTab('products')">Products</div>
+      <div class="tab" onclick="showTab('treatments')">Treatments</div>
+      <div class="tab" onclick="showTab('services')">Services</div>
     </div>
-  
-    <div id="products" class="items"></div>
-    <div id="treatments" class="items" style="display: none;"></div>
-    <div id="services" class="items" style="display: none;"></div>
+    <div id="products" class="section-content active"></div>
+    <div id="treatments" class="section-content"></div>
+    <div id="services" class="section-content"></div>
   </section>
-  
+
   <section id="about">
     <h2>About Us</h2>
-    <p>We specialize in holistic beauty treatments and products using ancient Ayurvedic techniques, ensuring both wellness and radiance.</p>
+    <p>Sunaina Beauty Care is committed to bringing you the best in beauty and wellness using time-tested natural and Ayurvedic solutions.</p>
   </section>
-  
+
   <section id="contact">
     <h2>Contact Us</h2>
-    <form action="#" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
+    <form onsubmit="event.preventDefault(); alert('Thank you! We’ll get back to you soon.'); this.reset();">
+      <input class="input" type="text" placeholder="Your Name" required>
+      <input class="input" type="email" placeholder="Your Email" required>
+      <textarea class="input" rows="4" placeholder="Your Message" required></textarea>
+      <button class="btn" type="submit">Send Message</button>
     </form>
   </section>
-  
-  <button class="cart-button" onclick="openCart()">🛒 <span>View Cart</span></button>
-  
-  <div id="cartModal" class="modal">
+
+  <button class="cart-btn" onclick="openCart()">View Cart</button>
+
+  <div class="modal" id="cartModal">
     <div class="modal-content">
-      <div class="close" onclick="closeCart()">×</div>
       <h2>Your Cart</h2>
-      <table id="cartTable">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <p>Total: ₹<span id="cartTotal">0</span></p>
-      <button onclick="placeOrder()">Place Order</button>
+      <div id="cartItems"></div>
+      <p><strong>Total:</strong> ₹<span id="cartTotal">0</span></p>
+      <button class="btn" onclick="showCheckout()">Proceed to Checkout</button>
+      <button class="btn" onclick="closeCart()">Close</button>
     </div>
   </div>
-  
+
+  <div class="modal" id="checkoutModal">
+    <div class="modal-content">
+      <h2>Delivery Details</h2>
+      <input class="input" id="name" placeholder="Full Name" required>
+      <input class="input" id="email" placeholder="Email Address" required>
+      <input class="input" id="address" placeholder="Full Address" required>
+      <input class="input" id="city" placeholder="City" required>
+      <input class="input" id="zip" placeholder="ZIP Code" required>
+      <button class="btn" onclick="submitOrder()">Place Order</button>
+      <button class="btn" onclick="closeCheckout()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Added to cart</div>
+
   <script>
-    const catalog = {
+    const items = {
       products: [
-        { name: 'Aloe Vera Gel', price: 450, img: 'https://via.placeholder.com/240?text=Aloe+Vera' },
-        { name: 'Green Tea Serum', price: 650, img: 'https://via.placeholder.com/240?text=Green+Tea' },
+        { name: 'Herbal Cream', price: 150, img: 'https://via.placeholder.com/150' },
+        { name: 'Natural Face Wash', price: 120, img: 'https://via.placeholder.com/150' },
+        { name: 'Aloe Vera Gel', price: 180, img: 'https://via.placeholder.com/150' },
       ],
       treatments: [
-        { name: 'Facial', price: 800, img: 'https://via.placeholder.com/240?text=Facial' },
-        { name: 'Detox Massage', price: 1200, img: 'https://via.placeholder.com/240?text=Massage' },
+        { name: 'Facial Therapy', price: 500, img: 'https://via.placeholder.com/150' },
+        { name: 'Herbal Body Spa', price: 1000, img: 'https://via.placeholder.com/150' },
       ],
       services: [
-        { name: 'Hair Styling', price: 500, img: 'https://via.placeholder.com/240?text=Hair+Styling' },
-        { name: 'Makeup', price: 700, img: 'https://via.placeholder.com/240?text=Makeup' },
+        { name: 'Hair Styling', price: 300, img: 'https://via.placeholder.com/150' },
+        { name: 'Threading', price: 50, img: 'https://via.placeholder.com/150' },
       ]
     };
-  
-    let cart = [];
-  
-    function showTab(tab, button) {
-      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      document.querySelectorAll('.items').forEach(itemSection => itemSection.style.display = 'none');
-      document.getElementById(tab).style.display = 'flex';
-      renderItems(tab);
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function showTab(tab) {
+      document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+      event.target.classList.add('active');
     }
-  
-    function renderItems(tab) {
-      const items = catalog[tab];
-      const container = document.getElementById(tab);
-      container.innerHTML = '';
-      items.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item');
-        itemDiv.innerHTML = `
-          <img src="${item.img}" alt="${item.name}">
-          <h4>${item.name}</h4>
-          <p>₹${item.price}</p>
-          <button onclick="addToCart('${tab}', '${item.name}', ${item.price})">Add to Cart</button>
-        `;
-        container.appendChild(itemDiv);
-      });
+
+    function renderItems() {
+      for (let type in items) {
+        const container = document.getElementById(type);
+        container.innerHTML = '';
+        items[type].forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h4>${item.name}</h4>
+            <p>₹${item.price}</p>
+            <button class="btn" onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>
+          `;
+          container.appendChild(card);
+        });
+      }
     }
-  
-    function addToCart(tab, name, price) {
-      const existingItem = cart.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.quantity++;
+
+    function addToCart(item) {
+      const found = cart.find(i => i.name === item.name);
+      if (found) {
+        found.qty++;
       } else {
-        cart.push({ name, price, quantity: 1 });
+        cart.push({ ...item, qty: 1 });
       }
-      updateCart();
+      localStorage.setItem('cart', JSON.stringify(cart));
+      showToast("Added to cart");
     }
-  
-    function updateCart() {
-      const tableBody = document.querySelector('#cartTable tbody');
-      tableBody.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>
-            <button onclick="updateQuantity('${item.name}', -1)">-</button>
-            ${item.quantity}
-            <button onclick="updateQuantity('${item.name}', 1)">+</button>
-          </td>
-          <td>₹${item.price}</td>
-          <td>₹${item.price * item.quantity}</td>
-          <td><button onclick="removeFromCart('${item.name}')">Remove</button></td>
-        `;
-        tableBody.appendChild(row);
-      });
-      document.getElementById('cartTotal').textContent = total;
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2000);
     }
-  
-    function updateQuantity(name, delta) {
-      const item = cart.find(item => item.name === name);
-      if (item) {
-        item.quantity = Math.max(1, item.quantity + delta);
-        updateCart();
-      }
-    }
-  
-    function removeFromCart(name) {
-      cart = cart.filter(item => item.name !== name);
-      updateCart();
-    }
-  
+
     function openCart() {
-      document.getElementById('cartModal').style.display = 'flex';
+      renderCart();
+      document.getElementById('cartModal').classList.add('show');
     }
-  
+
     function closeCart() {
-      document.getElementById('cartModal').style.display = 'none';
+      document.getElementById('cartModal').classList.remove('show');
     }
-  
-    function placeOrder() {
-      alert('Your order has been placed successfully! You will receive a confirmation email shortly.');
-      cart = [];
-      updateCart();
+
+    function renderCart() {
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} (₹${item.price})</span>
+            <input type="number" min="1" value="${item.qty}" onchange="updateQty(${index}, this.value)">
+            <button onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+      });
+      document.getElementById('cartTotal').innerText = total;
+    }
+
+    function updateQty(index, qty) {
+      cart[index].qty = parseInt(qty);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function showCheckout() {
       closeCart();
+      document.getElementById('checkoutModal').classList.add('show');
     }
-  
-    // Initial Tab rendering
-    showTab('products', document.querySelector('.tabs button'));
+
+    function closeCheckout() {
+      document.getElementById('checkoutModal').classList.remove('show');
+    }
+
+    function submitOrder() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const city = document.getElementById('city').value;
+      const zip = document.getElementById('zip').value;
+
+      if (!name || !email || !address || !city || !zip) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      const order = {
+        customer: { name, email, address, city, zip },
+        items: cart,
+        total: cart.reduce((sum, i) => sum + i.price * i.qty, 0),
+        date: new Date().toLocaleString()
+      };
+
+      localStorage.removeItem('cart');
+      cart = [];
+      alert(`Thank you, ${name}! Your order of ₹${order.total} has been placed.`);
+      closeCheckout();
+    }
+
+    renderItems();
   </script>
-  
-  </body>
+</body>
 </html>
