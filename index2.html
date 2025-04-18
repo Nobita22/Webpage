@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sunaina Beauty Care</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background: #f8f8f8;
+      color: #333;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    header {
+      background: linear-gradient(to right, #5D3A9B, #9B59B6);
+      background-size: 200% 200%;
+      animation: gradientAnimation 5s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    nav {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      position: sticky;
+      top: 100px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #5D3A9B;
+      font-weight: 600;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #5D3A9B;
+      transition: width 0.3s ease;
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+    }
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: #9B59B6; }
+
+    section {
+      padding: 4rem 1rem;
+      max-width: 100%;
+      margin: auto;
+      margin-top: 160px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .tabs button {
+      background: #9B59B6;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+    .tabs button:hover, .tabs button.active {
+      background: #5D3A9B;
+      transform: scale(1.05);
+    }
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      padding: 1.2rem;
+      width: 260px;
+      text-align: center;
+    }
+    .item img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #9B59B6;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #7d42b3;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 2rem;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ccc;
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5D3A9B;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      display: none;
+      z-index: 99999;
+    }
+
+    @media (max-width: 768px) {
+      .items, .extras {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>Sunaina Beauty Care</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="home">
+  <h2>Welcome to Sunaina Beauty Care</h2>
+  <p>Discover radiant beauty through natural Ayurvedic products, treatments, and services.</p>
+</section>
+
+<section id="shop">
+  <h2>Shop</h2>
+  <div class="tabs">
+    <button class="active" onclick="showTab('products', this)">Products</button>
+    <button onclick="showTab('treatments', this)">Treatments</button>
+    <button onclick="showTab('services', this)">Services</button>
+  </div>
+
+  <div id="products" class="items"></div>
+  <div id="treatments" class="items" style="display: none;"></div>
+  <div id="services" class="items" style="display: none;"></div>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>We offer Ayurvedic-based beauty products and professional treatments that rejuvenate your mind and body.</p>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<button class="cart-button" onclick="openCart()">🛒 View Cart</button>
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <div class="close" onclick="closeCart()">×</div>
+    <h2>Your Cart</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th><th>Action</th></tr>
+      </thead>
+      <tbody id="cartTable"></tbody>
+    </table>
+    <p>Total: ₹<span id="cartTotal">0</span></p>
+    <button onclick="checkout()">Place Order</button>
+  </div>
+</div>
+
+<!-- Delivery Form Modal -->
+<div id="deliveryModal" class="modal">
+  <div class="modal-content">
+    <div class="close" onclick="closeDelivery()">×</div>
+    <h2>Delivery Details</h2>
+    <form onsubmit="return confirmOrder()">
+      <input type="text" id="dname" placeholder="Full Name" required>
+      <input type="tel" id="dphone" placeholder="Phone Number" required>
+      <input type="text" id="daddress" placeholder="Full Address" required>
+      <input type="text" id="dcity" placeholder="City" required>
+      <input type="text" id="dstate" placeholder="State" required>
+      <input type="text" id="dpin" placeholder="Pincode" required>
+      <button type="submit">Confirm Order</button>
+    </form>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Order placed successfully!</div>
+
+<script>
+  const catalog = {
+    products: [
+      { name: 'Aloe Vera Gel', price: 450, img: 'https://via.placeholder.com/240?text=Aloe+Vera' },
+      { name: 'Green Tea Serum', price: 650, img: 'https://via.placeholder.com/240?text=Green+Tea' }
+    ],
+    treatments: [
+      { name: 'Facial', price: 800, img: 'https://via.placeholder.com/240?text=Facial' },
+      { name: 'Detox Massage', price: 1200, img: 'https://via.placeholder.com/240?text=Massage' }
+    ],
+    services: [
+      { name: 'Hair Styling', price: 500, img: 'https://via.placeholder.com/240?text=Hair+Styling' },
+      { name: 'Makeup', price: 700, img: 'https://via.placeholder.com/240?text=Makeup' }
+    ]
+  };
+
+  let cart = [];
+
+  function showTab(tab, btn) {
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.items').forEach(sec => sec.style.display = 'none');
+    document.getElementById(tab).style.display = 'flex';
+    renderItems(tab);
+  }
+
+  function renderItems(tab) {
+    const container = document.getElementById(tab);
+    container.innerHTML = '';
+    catalog[tab].forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `<img src="${item.img}" alt="${item.name}"/>
+                       <h4>${item.name}</h4>
+                       <p>₹${item.price}</p>
+                       <button onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>`;
+      container.appendChild(div);
+    });
+  }
+
+  function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) existing.qty++;
+    else cart.push({ name, price, qty: 1 });
+    updateCart();
+  }
+
+  function updateCart() {
+    const table = document.getElementById('cartTable');
+    table.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      total += item.qty * item.price;
+      table.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>
+            <button onclick="changeQty('${item.name}', -1)">-</button>
+            ${item.qty}
+            <button onclick="changeQty('${item.name}', 1)">+</button>
+          </td>
+          <td>₹${item.price}</td>
+          <td>₹${item.qty * item.price}</td>
+          <td><button onclick="removeItem('${item.name}')">Remove</button></td>
+        </tr>`;
+    });
+    document.getElementById('cartTotal').textContent = total;
+  }
+
+  function changeQty(name, delta) {
+    const item = cart.find(i => i.name === name);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty < 1) item.qty = 1;
+    updateCart();
+  }
+
+  function removeItem(name) {
+    cart = cart.filter(i => i.name !== name);
+    updateCart();
+  }
+
+  function openCart() {
+    document.getElementById('cartModal').style.display = 'flex';
+  }
+
+  function closeCart() {
+    document.getElementById('cartModal').style.display = 'none';
+  }
+
+  function checkout() {
+    closeCart();
+    document.getElementById('deliveryModal').style.display = 'flex';
+  }
+
+  function closeDelivery() {
+    document.getElementById('deliveryModal').style.display = 'none';
+  }
+
+  function confirmOrder() {
+    const data = {
+      name: document.getElementById('dname').value,
+      phone: document.getElementById('dphone').value,
+      address: document.getElementById('daddress').value,
+      city: document.getElementById('dcity').value,
+      state: document.getElementById('dstate').value,
+      pin: document.getElementById('dpin').value,
+      items: cart,
+      total: document.getElementById('cartTotal').textContent
+    };
+    localStorage.setItem('sunaina_order', JSON.stringify(data));
+    cart = [];
+    updateCart();
+    closeDelivery();
+    showToast("Order placed successfully!");
+    return false;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  }
+
+  // Initial rendering
+  renderItems('products');
+</script>
+
+</body>
+</html>
