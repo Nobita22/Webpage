@@ -222,6 +222,11 @@
 
   <div class="toast" id="toast">Added to cart</div>
 
+  <!-- WhatsApp Button for sending invoice -->
+  <a id="whatsappLink" href="#" target="_blank">
+    <button class="btn">Send Invoice via WhatsApp</button>
+  </a>
+
   <script>
     const items = {
       products: [
@@ -274,14 +279,48 @@
         cart.push({ ...item, qty: 1 });
       }
       localStorage.setItem('cart', JSON.stringify(cart));
-      showToast("Added to cart");
+      showToast('Added to cart');
+      renderCart();
     }
 
-    function showToast(msg) {
+    function showToast(message) {
       const toast = document.getElementById('toast');
-      toast.innerText = msg;
+      toast.textContent = message;
       toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 2000);
+      setTimeout(() => toast.style.display = 'none', 3000);
+    }
+
+    function renderCart() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <span>${item.name}</span>
+          <input type="number" value="${item.qty}" onchange="updateQty(${JSON.stringify(item)})" min="1">
+          <span>₹${item.price * item.qty}</span>
+          <button onclick="removeFromCart(${JSON.stringify(item)})">Remove</button>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+        total += item.price * item.qty;
+      });
+      cartTotal.textContent = total;
+    }
+
+    function updateQty(item) {
+      const newQty = event.target.value;
+      item.qty = newQty;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeFromCart(item) {
+      cart = cart.filter(i => i !== item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
     }
 
     function openCart() {
@@ -293,37 +332,8 @@
       document.getElementById('cartModal').classList.remove('show');
     }
 
-    function renderCart() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price * item.qty;
-        cartItems.innerHTML += `
-          <div class="cart-item">
-            <span>${item.name} (₹${item.price})</span>
-            <input type="number" min="1" value="${item.qty}" onchange="updateQty(${index}, this.value)">
-            <button onclick="removeItem(${index})">Remove</button>
-          </div>
-        `;
-      });
-      document.getElementById('cartTotal').innerText = total;
-    }
-
-    function updateQty(index, qty) {
-      cart[index].qty = parseInt(qty);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
-    }
-
     function showCheckout() {
-      closeCart();
+      document.getElementById('cartModal').classList.remove('show');
       document.getElementById('checkoutModal').classList.add('show');
     }
 
@@ -338,25 +348,43 @@
       const city = document.getElementById('city').value;
       const zip = document.getElementById('zip').value;
 
-      if (!name || !email || !address || !city || !zip) {
-        alert('Please fill all fields.');
-        return;
-      }
+      const invoiceText = generateInvoiceText();
+      const encodedText = encodeURIComponent(invoiceText);
+      const whatsappUrl = `https://wa.me/+917671824826?text=${encodedText}`;
 
-      const order = {
-        customer: { name, email, address, city, zip },
-        items: cart,
-        total: cart.reduce((sum, i) => sum + i.price * i.qty, 0),
-        date: new Date().toLocaleString()
-      };
-
-      localStorage.removeItem('cart');
+      alert(`Order Placed! We will send your invoice to WhatsApp.`);
+      window.location.href = whatsappUrl;
       cart = [];
-      alert(`Thank you, ${name}! Your order of ₹${order.total} has been placed.`);
+      localStorage.setItem('cart', JSON.stringify(cart));
       closeCheckout();
     }
 
+    function generateInvoiceText() {
+      let invoiceText = `Invoice\n\nSunaina Beauty Care\nYour trusted source for natural and Ayurvedic beauty care\n\n`;
+      invoiceText += `--------------------------------------------\n`;
+      invoiceText += `Item Description\tPrice\tQuantity\tTotal\n`;
+      invoiceText += `--------------------------------------------\n`;
+
+      let orderSubtotal = 0;
+      cart.forEach(item => {
+        let itemTotal = item.price * item.qty;
+        orderSubtotal += itemTotal;
+        invoiceText += `${item.name}\t₹${item.price}\t${item.qty}\t₹${itemTotal}\n`;
+      });
+
+      invoiceText += `--------------------------------------------\n`;
+      invoiceText += `Subtotal: ₹${orderSubtotal}\n`;
+      invoiceText += `Total: ₹${orderSubtotal}\n`;
+      invoiceText += `--------------------------------------------\n`;
+      invoiceText += `Delivery Address:\n123 Main Street, City, State, ZIP\n`;
+      invoiceText += `Payment Method: Cash on Delivery\n`;
+
+      return invoiceText;
+    }
+
+    // Initialize the site
     renderItems();
+    updateWhatsAppLink();
   </script>
 </body>
 </html>
