@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Premium beauty treatments, services and products at Sunaina Beauty Clinic in Hyderabad." />
+  <title>Sunaina Beauty Clinic | Premium Beauty Solutions</title>
+
+  <!-- Preconnect & Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:400,600,700,800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="preload"
+    as="style"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    :root {
+      --primary: #ff6b8b;
+      --secondary: #a18cd1;
+      --accent: #6a11cb;
+      --dark: #1e1a2f;
+      --light: #f9f7fe;
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Base */
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; padding: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--dark);
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
+    }
+    img { max-width: 100%; display: block; }
+    button, a { font-family: inherit; }
+    :focus-visible {
+      outline: 2px dashed var(--primary);
+      outline-offset: 3px;
+    }
+
+    /* Header & Nav */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+      z-index: 1000; padding: 1rem 3%;
+    }
+    nav {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-size: 2rem; font-weight: 800;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+    .nav-links {
+      display: flex; gap: 2rem;
+      transition: max-height 0.3s ease; overflow: hidden;
+    }
+    .nav-links a {
+      position: relative; text-decoration: none;
+      color: var(--dark); font-weight: 500; white-space: nowrap;
+      padding: 0.5rem 0;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      transition: var(--transition);
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after { width: 100%; }
+    .burger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer;
+    }
+    .burger span {
+      width: 32px; height: 4px;
+      background: var(--primary); border-radius: 2px;
+      transition: 0.4s;
+    }
+    .cart-icon {
+      position: relative; background: none; border: none;
+      cursor: pointer; font-size: 1.5rem;
+    }
+    .cart-count {
+      position: absolute; top: -6px; right: -6px;
+      background: var(--primary); color: #fff;
+      border-radius: 50%; width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: bold;
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 94px; padding: 130px 0 100px;
+      text-align: center; color: #fff;
+      background:
+        linear-gradient(125deg, rgba(255,107,139,0.67) 0%, rgba(161,140,209,0.63) 100%),
+        url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80")
+        center/cover no-repeat;
+    }
+    .hero h1 { font-size: 3.2em; line-height: 1.1; margin: 0 0 0.5em; }
+    .hero p { font-size: 1.25em; line-height: 1.5; margin-bottom: 1.8em; }
+    .cta-button {
+      padding: 0.85em 1.7em;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      border: none; border-radius: 25px; color: #fff;
+      font-size: 1.1em; font-weight: 600;
+      box-shadow: 0 2px 15px rgba(161,140,209,0.46);
+      cursor: pointer; transition: background 0.3s;
+    }
+    .cta-button:hover,
+    .cta-button:focus { background: var(--primary); }
+
+    /* Sections */
+    section { padding: 64px 0; text-align: center; }
+    .section-title h2 {
+      font-size: 2.3em;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section-title p { color: #555; line-height: 1.5; }
+
+    /* Grids */
+    .treatments-grid,
+    .services-grid,
+    .products-grid,
+    .gallery-grid {
+      display: grid; gap: 1.5em; margin: 0 2%;
+    }
+    .treatments-grid,
+    .services-grid,
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+
+    /* Cards */
+    .treatment-card,
+    .service-card,
+    .product-card {
+      position: relative;
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(161,140,209,0.33);
+      display: flex; flex-direction: column; overflow: hidden;
+      transition: transform 0.2s; cursor: pointer;
+    }
+    .card-img {
+      aspect-ratio: 16/9; background-size: cover; background-position: center;
+    }
+    .card-content {
+      padding: 1em; flex: 1; display: flex; flex-direction: column;
+    }
+    .card-content h3 { margin: 0 0 0.5em; }
+    .card-content p {
+      color: #555; flex: 1; margin-bottom: 0.5em; line-height: 1.4;
+    }
+    .price {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 1.15em; font-weight: 600;
+    }
+    .add-to-cart,
+    .add-to-cart-btn {
+      background: var(--accent); border: none; color: #fff;
+      width: 36px; height: 36px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .add-to-cart:hover,
+    .add-to-cart-btn:hover { background: var(--primary); }
+    .treatment-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--primary); color: #fff;
+      padding: 4px 12px; border-radius: 12px;
+      font-size: 0.85em; font-weight: 600;
+    }
+
+    /* Modals */
+    .modal,
+    .detail-modal {
+      position: fixed; inset: 0;
+      background: rgba(30,26,47,0.2);
+      display: none; align-items: center; justify-content: center;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      z-index: 1100;
+    }
+    .modal.show,
+    .detail-modal.show {
+      display: flex;
+    }
+    .modal-content,
+    .detail-modal-content,
+    .gallery-modal-content {
+      background: #fff; border-radius: 16px;
+      width: 95%; max-width: 600px; margin: 2rem auto;
+      padding: 1.5rem;
+      box-shadow: 0 10px 40px rgba(161,140,209,0.3);
+      position: relative;
+    }
+    .detail-modal-content {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .gallery-modal-content img { width: 100%; border-radius: 12px; }
+    .close-modal,
+    .close-detail-modal {
+      position: absolute; top: 12px; right: 12px;
+      background: none; border: none; font-size: 1.5rem;
+      cursor: pointer; color: #666; transition: color 0.3s;
+    }
+    .close-modal:hover,
+    .close-detail-modal:hover { color: var(--primary); }
+    .detail-content { padding: 0.5rem 0; }
+    .detail-content h2 { margin-top: 0; }
+    .feature-list {
+      text-align: left; margin: 0.5em 0 1em; padding-left: 1.2em;
+    }
+    .detail-actions { display: flex; gap: 0.5em; flex-wrap: wrap; }
+    .detail-actions .add-to-cart-btn { flex: 1; min-width: 120px; }
+
+    /* Forms */
+    .booking-form,
+    .checkout-form form {
+      display: grid; gap: 1em;
+    }
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea,
+    .checkout-form input,
+    .checkout-form textarea {
+      width: 100%; padding: 0.6em 1em;
+      border: 1px solid #cfcfea; border-radius: 8px;
+      font-size: 1em; transition: border-color 0.3s;
+    }
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus,
+    .checkout-form input:focus,
+    .checkout-form textarea:focus {
+      border-color: var(--primary);
+    }
+    .booking-form button,
+    .submit-btn {
+      padding: 0.75em 1.5em;
+      background: var(--primary); color: #fff;
+      border: none; border-radius: 25px;
+      font-weight: 600; cursor: pointer;
+      transition: background 0.3s;
+    }
+    .booking-form button:hover,
+    .submit-btn:hover { background: var(--accent); }
+
+    /* Footer */
+    footer {
+      background: #fff; padding: 3rem 5%; color: #444;
+    }
+    .footer-grid {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      justify-content: space-between; max-width: 1200px; margin: 0 auto;
+    }
+    .footer-column { flex: 1 1 220px; }
+    .footer-column h3 { margin-top: 0; font-weight: 700; }
+    .footer-column a {
+      display: block; color: var(--dark); text-decoration: none;
+      margin-bottom: 0.4em;
+    }
+    .footer-column a:hover { color: var(--primary); }
+    .social-links {
+      display: flex; gap: 1em; margin-top: 0.5em;
+    }
+    .social-links a {
+      font-size: 1.3em; color: var(--dark);
+      transition: color 0.3s;
+    }
+    .social-links a:hover { color: var(--primary); }
+    .copyright {
+      text-align: center; margin-top: 2rem; font-size: 0.8em;
+      color: #777;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      nav { padding: 0 1rem; }
+    }
+    @media (max-width: 768px) {
+      .burger { display: flex; }
+      .nav-links {
+        position: absolute; top: 100%; right: 3%;
+        flex-direction: column; width: 200px;
+        max-height: 0; background: #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 8px; overflow: hidden;
+      }
+      .nav-links.show { max-height: 400px; }
+      .nav-links a { padding: 0.75em 1rem; border-bottom: 1px solid #eee; }
+      .hero { padding: 80px 0 70px; }
+      .hero h1 { font-size: 2.15em; }
+      .section-title h2 { font-size: 1.8em; }
+      .detail-modal-content {
+        display: flex; flex-direction: column;
+      }
+      .footer-grid { flex-direction: column; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">Sunaina</div>
+      <div class="nav-links" id="navLinks" role="navigation">
+        <a href="#home">Home</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#services">Services</a>
+        <a href="#products">Products</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <button class="cart-icon" id="cartIcon" aria-label="Open shopping cart">
+        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+        <span class="cart-count" aria-live="polite">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Illuminate Your Natural Beauty</h1>
+        <p>Premium beauty treatments, services and products curated by experts to enhance your radiance and confidence.</p>
+        <button class="cta-button" id="openBookingBtn">Book a Consultation</button>
+      </div>
+    </section>
+
+    <section id="treatments">
+      <div class="section-title">
+        <h2>Specialized Treatments</h2>
+        <p>Advanced procedures designed to address specific beauty concerns</p>
+      </div>
+      <div class="treatments-grid" id="treatments-container" tabindex="0"></div>
+    </section>
+
+    <section id="services">
+      <div class="section-title">
+        <h2>Our Premium Services</h2>
+        <p>Professional treatments designed to rejuvenate your skin and enhance your natural beauty</p>
+      </div>
+      <div class="services-grid" id="services-container" tabindex="0"></div>
+    </section>
+
+    <section id="products">
+      <div class="section-title">
+        <h2>Beauty Products</h2>
+        <p>Carefully selected beauty products to complement our professional treatments</p>
+      </div>
+      <div class="products-grid" id="products-container" tabindex="0"></div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-title">
+        <h2>Our Work Gallery</h2>
+        <p>See the transformations we've created for our valued clients</p>
+      </div>
+      <div class="gallery-grid" id="gallery-container" tabindex="0"></div>
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close">&times;</button>
+      <h2 id="cartTitle">Your Shopping Cart</h2>
+      <div class="cart-items" aria-live="polite"></div>
+      <div class="cart-total"><span>Total:</span><span id="totalAmount">₹0.00</span></div>
+      <div class="checkout-form">
+        <h3>Checkout Details</h3>
+        <form id="checkoutForm" autocomplete="off">
+          <input type="text" id="fullName" placeholder="Full Name" required autocomplete="name" />
+          <input type="tel" id="phone" placeholder="Phone Number" pattern="[\d+\-\s]+" required autocomplete="tel" />
+          <textarea id="address" placeholder="Full Address" rows="2" required autocomplete="street-address"></textarea>
+          <input type="text" id="pincode" placeholder="Pincode" pattern="\d{6}" maxlength="6" required autocomplete="postal-code" />
+          <button type="submit" class="submit-btn">Complete Order via WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close">&times;</button>
+      <h2 id="bookingTitle">Book Consultation</h2>
+      <form class="booking-form" id="bookingForm" autocomplete="off">
+        <input type="text" id="bookingName" placeholder="Name*" required />
+        <input type="tel" id="bookingPhone" placeholder="Phone Number*" pattern="[\d+\-\s]+" required />
+        <input type="date" id="bookingDate" required />
+        <input type="time" id="bookingTime" required />
+        <select id="bookingType" required>
+          <option value="">Select Type*</option>
+          <option>Service</option>
+          <option>Treatment</option>
+        </select>
+        <textarea id="bookingNotes" placeholder="Additional Notes"></textarea>
+        <button type="submit">Send Booking via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+<!-- Detail Modal -->
+<div id="detailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true">
+  <div class="modal-content" tabindex="0">
+    <button class="close-modal" aria-label="Close">&times;</button>
+    <h2 id="detailTitle"></h2>
+    <img id="detailImage" src="" alt="" style="width:100%; border-radius:12px; margin-bottom:1em;" />
+    <p id="detailDescription"></p>
+    <p><strong>Price: </strong>₹<span id="detailPrice"></span></p>
+  </div>
+</div>
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h3>Sunaina Beauty</h3>
+        <p>Your trusted partner in beauty and wellness since 2018.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#services">Services</a>
+        <a href="#products">Products</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Shivalayam St, Puppalaguda, Hyderabad, Telangana 500089</p>
+        <p><i class="fas fa-phone"></i> +91 76718 24826</p>
+        <p><i class="fas fa-envelope"></i> info@sunaina.com</p>
+        <p><i class="fas fa-clock"></i> Mon–Sat: 10AM — 8PM</p>
+      </div>
+    </div>
+    <div class="copyright">&copy; 2025 Sunaina Beauty Clinic. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const detailModal = document.getElementById('detailModal');
+const detailTitle = document.getElementById('detailTitle');
+const detailImage = document.getElementById('detailImage');
+const detailDescription = document.getElementById('detailDescription');
+const detailPrice = document.getElementById('detailPrice');
+
+// Helper: find item by id from datasets
+function findItemById(id) {
+  return (
+    treatmentsData.find(i => i.id === id) ||
+    servicesData.find(i => i.id === id) ||
+    productsData.find(i => i.id === id) ||
+    null
+  );
+}
+
+// Show detail modal with item info
+function showDetailModal(item) {
+  if (!item) return;
+  detailTitle.textContent = item.name || '';
+  detailImage.src = item.image || '';
+  detailImage.alt = item.name || 'Detail image';
+  detailDescription.textContent = item.description || '';
+  detailPrice.textContent = item.price ? item.price.toFixed(2) : 'N/A';
+
+  detailModal.classList.add('show');
+  detailModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  // Focus modal content for accessibility
+  detailModal.querySelector('.modal-content').focus();
+}
+
+// Hide detail modal
+function hideDetailModal() {
+  detailModal.classList.remove('show');
+  detailModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+// Listen for clicks on cards (event delegation)
+document.body.addEventListener('click', e => {
+  const card = e.target.closest('.treatment-card, .service-card, .product-card');
+  if (card && !e.target.closest('button')) { // don't trigger if clicking button inside card
+    const id = card.getAttribute('data-id');
+    const item = findItemById(id);
+    if (item) {
+      showDetailModal(item);
+    }
+  }
+});
+
+// Close modal on close button click
+detailModal.querySelector('.close-modal').addEventListener('click', () => {
+  hideDetailModal();
+});
+
+// Close modal on clicking outside modal-content
+detailModal.addEventListener('click', e => {
+  if (e.target === detailModal) {
+    hideDetailModal();
+  }
+});
+
+// Optional: Close modal on ESC key pressed
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && detailModal.classList.contains('show')) {
+    hideDetailModal();
+  }
+});
+
+    // Data arrays (sample data for demonstration)
+    const treatmentsData = [
+      {
+        id: "treat1",
+        name: "Hydrating Facial",
+        description: "Rejuvenate your skin with deep hydration.",
+        price: 1500,
+        image: "https://images.unsplash.com/photo-1576765607921-b84ce03c76a0?auto=format&fit=crop&w=400&q=80",
+        badge: "New"
+      },
+      {
+        id: "treat2",
+        name: "Anti-Aging Therapy",
+        description: "Combat wrinkles and fine lines effectively.",
+        price: 3000,
+        image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80",
+        badge: ""
+      }
+    ];
+
+    const servicesData = [
+      {
+        id: "serv1",
+        name: "Skin Consultation",
+        description: "Personalized skin care expert advice.",
+        price: 500,
+        image: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: "serv2",
+        name: "Makeup Session",
+        description: "Look your best with professional makeup.",
+        price: 2500,
+        image: "https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=400&q=80"
+      }
+    ];
+
+    const productsData = [
+      {
+        id: "prod1",
+        name: "Glow Serum",
+        description: "Enhance your skin’s radiance.",
+        price: 1200,
+        image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?auto=format&fit=crop&w=400&q=80"
+      },
+      {
+        id: "prod2",
+        name: "Anti-Wrinkle Cream",
+        description: "Reduce the appearance of wrinkles.",
+        price: 1800,
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+      }
+    ];
+
+    const galleryData = [
+      {
+        id: "gallery1",
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+        alt: "Before and After Treatment 1"
+      },
+      {
+        id: "gallery2",
+        image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80",
+        alt: "Before and After Treatment 2"
+      }
+    ];
+
+    // DOM Elements
+    const navLinks = document.getElementById('navLinks');
+    const burger = document.getElementById('burger');
+    const cartIcon = document.getElementById('cartIcon');
+    const cartModal = document.getElementById('cartModal');
+    const bookingModal = document.getElementById('bookingModal');
+    const treatmentsContainer = document.getElementById('treatments-container');
+    const servicesContainer = document.getElementById('services-container');
+    const productsContainer = document.getElementById('products-container');
+    const galleryContainer = document.getElementById('gallery-container');
+    const cartCountSpan = document.querySelector('.cart-count');
+    const cartItemsDiv = cartModal.querySelector('.cart-items');
+    const totalAmountSpan = document.getElementById('totalAmount');
+    const openBookingBtn = document.getElementById('openBookingBtn');
+    const bookingForm = document.getElementById('bookingForm');
+    const checkoutForm = document.getElementById('checkoutForm');
+
+    // State
+    let cart = [];
+
+    // Toggle nav for mobile
+    burger.addEventListener('click', () => {
+      const expanded = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', String(!expanded));
+      navLinks.classList.toggle('show');
+    });
+
+    // Toggle modal helper + accessibility updates
+    function toggleModal(modal, show) {
+      if (show) {
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // prevent background scroll
+        // Focus trap logic could be added here
+        // Focus first focusable element inside modal
+        const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable) focusable.focus();
+      } else {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        // Return focus to previously focused element (optional)
+      }
+    }
+
+    // Close modal buttons
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', e => {
+        toggleModal(e.target.closest('.modal'), false);
+      });
+    });
+
+    // Open booking modal
+    openBookingBtn.addEventListener('click', () => {
+      // Set min date to today
+      const today = new Date().toISOString().slice(0, 10);
+      document.getElementById('bookingDate').setAttribute('min', today);
+      toggleModal(bookingModal, true);
+    });
+
+    // Render grid helper function
+    function renderGrid(data, container, type) {
+      container.innerHTML = data.map(item => {
+        const badge = item.badge ? `<div class="treatment-badge">${item.badge}</div>` : '';
+        return `
+          <div class="${type}-card" data-id="${item.id}" style="position:relative;" tabindex="0" aria-label="${item.name} - ₹${item.price}">
+            ${badge}
+            <div class="card-img" style="background-image:url('${item.image}')"></div>
+            <div class="card-content">
+              <h3>${item.name}</h3>
+              <p>${item.description}</p>
+              <div class="price">
+                <span>₹${item.price}</span>
+                <button class="add-to-cart" aria-label="Add ${item.name} to cart" data-id="${item.id}" data-type="${type}">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Update cart count preview
+    function updateCartCount() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      cartCountSpan.textContent = count;
+    }
+
+    // Render cart items inside modal
+    function renderCart() {
+      if (!cart.length) {
+        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+        totalAmountSpan.textContent = '₹0.00';
+        return;
+      }
+      cartItemsDiv.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.style = 'display:flex; justify-content: space-between; margin-bottom:0.5em;';
+        div.innerHTML = `
+          <span>${item.name} <strong>(x${item.quantity})</strong></span>
+          <span>₹${item.price * item.quantity}</span>
+        `;
+        cartItemsDiv.appendChild(div);
+      });
+      totalAmountSpan.textContent = `₹${total.toFixed(2)}`;
+    }
+
+    // Add item to cart helper
+    function addToCart(itemId, type) {
+      let productList;
+      switch(type) {
+        case 'treatment': productList = treatmentsData; break;
+        case 'service': productList = servicesData; break;
+        case 'product': productList = productsData; break;
+        default: return;
+      }
+      const item = productList.find(i => i.id === itemId);
+      if (!item) return;
+
+      const existing = cart.find(ci => ci.id === itemId);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({...item, quantity: 1});
+      }
+      updateCartCount();
+      alert(`Added "${item.name}" to cart.`);
+    }
+
+    // Event delegation for add to cart buttons
+    document.body.addEventListener('click', e => {
+      if (e.target.closest('.add-to-cart')) {
+        const btn = e.target.closest('.add-to-cart');
+        const id = btn.getAttribute('data-id');
+        const type = btn.getAttribute('data-type');
+        addToCart(id, type);
+      }
+    });
+
+    // Cart icon click opens cart modal
+    cartIcon.addEventListener('click', () => {
+      renderCart();
+      toggleModal(cartModal, true);
+    });
+
+    // Handle checkout form submission: send WhatsApp message
+    checkoutForm.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!cart.length) {
+        alert('Your cart is empty.');
+        return;
+      }
+      const fullName = e.target.fullName.value.trim();
+      const phone = e.target.phone.value.trim();
+      const address = e.target.address.value.trim();
+      const pincode = e.target.pincode.value.trim();
+
+      if (!fullName || !phone || !address || !pincode) {
+        alert('Please fill all checkout fields.');
+        return;
+      }
+
+      let message = `*Sunaina Beauty Clinic Order*\n\nCustomer: ${fullName}\nPhone: ${phone}\nAddress: ${address}, Pincode: ${pincode}\n\nOrder Details:\n`;
+      cart.forEach(item => {
+        message += `- ${item.name} x${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}\n`;
+      });
+      const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      message += `\nTotal Amount: ₹${total.toFixed(2)}\n\nPlease process this order.`;
+
+      const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
+      window.open(waURL, '_blank');
+
+      toggleModal(cartModal, false);
+      cart = [];
+      updateCartCount();
+      renderCart();
+      checkoutForm.reset();
+    });
+
+    // Booking form submit - send booking details via WhatsApp
+    bookingForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name = e.target.bookingName.value.trim();
+      const phone = e.target.bookingPhone.value.trim();
+      const date = e.target.bookingDate.value;
+      const time = e.target.bookingTime.value;
+      const type = e.target.bookingType.value;
+      const notes = e.target.bookingNotes.value.trim();
+
+      if (!name || !phone || !date || !time || !type) {
+        alert('Please fill all required booking fields.');
+        return;
+      }
+
+      let message = `*Sunaina Beauty Clinic Booking*\n\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nType: ${type}\n`;
+      if (notes) message += `Notes: ${notes}\n`;
+
+      message += "\nPlease confirm my booking.";
+
+      const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
+      window.open(waURL, '_blank');
+
+      toggleModal(bookingModal, false);
+      bookingForm.reset();
+    });
+
+    // Render all grids on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGrid(treatmentsData, treatmentsContainer, 'treatment');
+      renderGrid(servicesData, servicesContainer, 'service');
+      renderGrid(productsData, productsContainer, 'product');
+
+      // Gallery uses <img> tags differently
+      galleryContainer.innerHTML = galleryData.map(item => `
+        <div tabindex="0" aria-label="Gallery image: ${item.alt || 'image'}">
+          <img src="${item.image}" alt="${item.alt || ''}" loading="lazy" width="300" height="200" style="border-radius:12px; cursor:pointer;" />
+        </div>
+      `).join('');
+
+      updateCartCount();
+    });
+
+    // Close modals on outside click or ESC key
+    window.addEventListener('click', e => {
+      if (e.target.classList.contains('modal')) {
+        toggleModal(e.target, false);
+      }
+    });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        [cartModal, bookingModal].forEach(modal => {
+          if (modal.classList.contains('show')) toggleModal(modal, false);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
