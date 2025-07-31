@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Beauty Clinic | Premium Beauty Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff6b8b;
+            --secondary: #a18cd1;
+            --accent: #6a11cb;
+            --dark: #1e1a2f;
+            --light: #f9f7fe;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3') center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(106,17,203,0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--dark), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.4);
+        }
+
+        /* Treatments Section */
+        .treatments {
+            padding: 8rem 10%;
+            background: linear-gradient(to bottom, #ffffff, #f8f9ff);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        } 
+
+        .section-title p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .treatments-grid, .services-grid, .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .treatment-card, .service-card, .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .treatment-card:hover, .service-card:hover, .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .treatment-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .price span {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 10%;
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            animation: modalIn 0.5s ease-out;
+        }
+
+        @keyframes modalIn {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-name {
+            font-weight: 600;
+        }
+
+        .item-type {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .item-price {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eee;
+        }
+
+        .checkout-form {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.4);
+        }
+
+        /* Detail Modals */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .detail-modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            animation: modalIn 0.5s ease-out;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .close-detail-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #777;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .close-detail-modal:hover {
+            background: #f1f1f1;
+            color: var(--primary);
+        }
+
+        .detail-image {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-content {
+            padding: 1rem;
+        }
+
+        .detail-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+        }
+
+        .detail-content .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 1rem 0;
+        }
+
+        .detail-content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-features {
+            margin: 1.5rem 0;
+        }
+
+        .detail-features h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .book-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.4);
+        }
+
+        .add-to-cart-btn {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Gallery Modal */
+        .gallery-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .gallery-modal-content .detail-image {
+            height: 80vh;
+            width: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .detail-modal-content {
+                grid-template-columns: 1fr;
+                max-width: 95%;
+            }
+            
+            .detail-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Lumière</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#treatments">Treatments</a>
+                <a href="#services">Services</a>
+                <a href="#products">Products</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Illuminate Your Natural Beauty</h1>
+            <p>Premium beauty treatments, services and products curated by experts to enhance your natural radiance and confidence.</p>
+            <button class="cta-button">Book a Consultation</button>
+        </div>
+    </section>
+
+    <!-- Treatments Section -->
+    <section id="treatments" class="treatments">
+        <div class="section-title">
+            <h2>Specialized Treatments</h2>
+            <p>Advanced procedures designed to address specific beauty concerns</p>
+        </div>
+        <div class="treatments-grid" id="treatments-container"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-title">
+            <h2>Our Premium Services</h2>
+            <p>Professional treatments designed to rejuvenate your skin and enhance your natural beauty</p>
+        </div>
+        <div class="services-grid" id="services-container"></div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="section-title">
+            <h2>Beauty Products</h2>
+            <p>Carefully selected beauty products to complement our professional treatments</p>
+        </div>
+        <div class="products-grid" id="products-container"></div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="section-title">
+            <h2>Our Work Gallery</h2>
+            <p>See the transformations we've created for our valued clients</p>
+        </div>
+        <div class="gallery-grid" id="gallery-container"></div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="cart-header">
+                <h2>Your Shopping Cart</h2>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be dynamically added -->
+            </div>
+            <div class="cart-total">
+                <span>Total Amount:</span>
+                <span id="totalAmount">₹0.00</span>
+            </div>
+            <div class="checkout-form">
+                <h3>Checkout Details</h3>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Full Address</label>
+                        <textarea id="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Complete Order via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modals Container -->
+    <div id="modals-container"></div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Lumière Beauty</h3>
+                <p>Your trusted partner in beauty and wellness, providing premium services and products since 2018.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#treatments">Treatments</a>
+                <a href="#services">Services</a>
+                <a href="#products">Products</a>
+                <a href="#gallery">Gallery</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Beauty Street, Mumbai</p>
+                <p><i class="fas fa-phone"></i> +91 7864489076</p>
+                <p><i class="fas fa-envelope"></i> info@lumiere.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Sat: 10AM - 8PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Lumière Beauty Clinic. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Initialize cart
+        let cart = [];
+        const cartCount = document.querySelector('.cart-count');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const totalAmountElement = document.getElementById('totalAmount');
+        const cartModal = document.getElementById('cartModal');
+        const checkoutForm = document.getElementById('checkoutForm');
+
+        // Data stored in JavaScript variables
+        const treatmentsData = [
+            {
+                id: "t1",
+                name: "HydraFacial Therapy",
+                description: "Deep cleansing, exfoliation, extraction, and hydration with antioxidant protection",
+                price: 5500,
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: "Popular",
+                details: {
+                    description: "Our signature HydraFacial Therapy is a multi-step treatment that cleanses, exfoliates, extracts, and hydrates your skin using patented vortex technology. This non-invasive procedure delivers instant, noticeable results with no downtime.",
+                    benefits: [
+                        "Deeply cleanses and exfoliates the skin",
+                        "Extracts impurities with painless suction",
+                        "Hydrates with intensive moisturizers",
+                        "Reduces fine lines, wrinkles, and hyperpigmentation",
+                        "Improves skin texture and tone",
+                        "Provides antioxidant protection"
+                    ],
+                    process: "This 60-minute treatment begins with a thorough skin analysis. The HydraFacial device then performs a 4-step process: cleanse, peel, extract, and hydrate. The treatment concludes with a customized serum infusion tailored to your skin's specific needs."
+                }
+            },
+            {
+                id: "t2",
+                name: "Laser Hair Removal",
+                description: "Full body laser hair reduction with advanced diode technology",
+                price: 8500,
+                image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: "New",
+                details: {
+                    description: "Our advanced laser hair removal treatment uses diode technology to target hair follicles with precision, resulting in long-lasting hair reduction. Suitable for all skin types, this treatment provides smooth, hair-free skin with minimal discomfort.",
+                    benefits: [
+                        "Permanent hair reduction after a series of treatments",
+                        "Safe for all skin types and most body areas",
+                        "Precision targeting without damaging surrounding skin",
+                        "Fast treatment - legs can be done in under 30 minutes",
+                        "No downtime - resume activities immediately",
+                        "Prevents ingrown hairs and razor bumps"
+                    ]
+                }
+            },
+            {
+                id: "t3",
+                name: "Anti-Aging Treatment",
+                description: "Advanced collagen boosting therapy to reduce wrinkles and fine lines",
+                price: 12000,
+                image: "https://images.unsplash.com/photo-1620916297397-9fd3f9f1a97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                badge: "",
+                details: {
+                    description: "Our anti-aging treatment combines advanced technologies to stimulate collagen production, reduce wrinkles, and restore youthful volume to your skin. This comprehensive approach addresses multiple signs of aging for transformative results.",
+                    benefits: [
+                        "Stimulates natural collagen production",
+                        "Reduces appearance of fine lines and wrinkles",
+                        "Improves skin elasticity and firmness",
+                        "Enhances skin texture and tone",
+                        "Minimizes pore size and evens skin pigmentation",
+                        "Provides long-lasting rejuvenation"
+                    ],
+                    process: "This 90-minute treatment begins with a skin analysis. We then use a combination of radiofrequency, microcurrent, and LED therapy to stimulate collagen at different depths. The treatment concludes with a customized serum application and SPF protection."
+                }
+            }
+        ];
+
+        const servicesData = [
+            {
+                id: "s1",
+                name: "Signature Facial",
+                description: "Deep cleansing, exfoliation and hydration treatment for glowing skin",
+                price: 2500,
+                image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our Signature Facial is a luxurious treatment designed to cleanse, exfoliate, and nourish your skin. This 60-minute experience combines advanced techniques with premium products to reveal a radiant, refreshed complexion.",
+                    benefits: [
+                        "Deep cleansing to remove impurities",
+                        "Gentle exfoliation for smoother skin",
+                        "Hydration boost for plump, dewy skin",
+                        "Improved skin texture and tone",
+                        "Relaxing massage to relieve tension",
+                        "Customized to your skin type and concerns"
+                    ],
+                    process: [
+                        "Skin analysis and consultation",
+                        "Double cleansing with botanical extracts",
+                        "Gentle enzymatic exfoliation",
+                        "Steam therapy to open pores",
+                        "Extraction of impurities",
+                        "Customized mask treatment",
+                        "Hydrating serum and moisturizer application",
+                        "SPF protection for daytime treatments"
+                    ]
+                }
+            },
+            {
+                id: "s2",
+                name: "Acne Solutions",
+                description: "Specialized treatment for acne-prone skin with deep cleansing",
+                price: 3500,
+                image: "https://images.unsplash.com/photo-1599351431402-50a5a1a4d249?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our Acne Solutions treatment is designed specifically for acne-prone skin, combining deep cleansing with specialized techniques to reduce breakouts, minimize pores, and prevent future blemishes.",
+                    benefits: [
+                        "Reduces active breakouts and inflammation",
+                        "Minimizes pore size and controls excess oil",
+                        "Prevents future breakouts and scarring",
+                        "Fades post-acne marks and redness",
+                        "Balances skin's oil production",
+                        "Promotes clearer, healthier-looking skin"
+                    ],
+                    process: [
+                        "Skin analysis and acne assessment",
+                        "Deep cleansing with salicylic acid",
+                        "Gentle exfoliation to unclog pores",
+                        "High-frequency treatment to kill bacteria",
+                        "Customized acne-fighting mask",
+                        "Extractions performed with sterile tools",
+                        "Soothing serum and oil-free moisturizer",
+                        "SPF application to protect healing skin"
+                    ]
+                }
+            },
+            {
+                id: "s3",
+                name: "Skin Rejuvenation",
+                description: "Revitalize your skin with our advanced rejuvenation therapy",
+                price: 4200,
+                image: "https://images.unsplash.com/photo-1599351431402-50a5a1a4d249?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our Skin Rejuvenation therapy combines advanced techniques to revitalize tired, dull skin. This comprehensive treatment addresses multiple concerns to reveal a brighter, more youthful complexion.",
+                    benefits: [
+                        "Improves skin radiance and glow",
+                        "Stimulates cellular renewal",
+                        "Reduces appearance of fine lines",
+                        "Minimizes pores and evens skin tone",
+                        "Boosts hydration and plumpness",
+                        "Enhances skin's natural defense"
+                    ],
+                    process: [
+                        "Double cleanse to remove impurities",
+                        "Gentle enzymatic exfoliation",
+                        "Microdermabrasion for deeper exfoliation",
+                        "Customized serum infusion",
+                        "LED light therapy to stimulate cells",
+                        "Lymphatic drainage massage",
+                        "Hydrating mask treatment",
+                        "Protective moisturizer and SPF"
+                    ]
+                }
+            }
+        ];
+
+        const productsData = [
+            {
+                id: "p1",
+                name: "Vitamin C Serum",
+                description: "Brightening and anti-oxidant serum for radiant skin",
+                price: 1200,
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our potent Vitamin C Serum combines 20% pure L-ascorbic acid with ferulic acid and vitamin E to provide advanced antioxidant protection and visible brightening results. This lightweight formula helps combat signs of aging while improving skin tone and texture.",
+                    benefits: [
+                        "Brightens skin and evens tone",
+                        "Reduces appearance of fine lines and wrinkles",
+                        "Boosts collagen production",
+                        "Protects against environmental stressors",
+                        "Fades dark spots and hyperpigmentation",
+                        "Improves skin texture and radiance"
+                    ],
+                    usage: "Apply 4-5 drops to clean, dry skin in the morning before moisturizer. Follow with sunscreen. Suitable for all skin types. For best results, use daily."
+                }
+            },
+            {
+                id: "p2",
+                name: "Hydrating Moisturizer",
+                description: "24-hour hydration with hyaluronic acid",
+                price: 1500,
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our Hydrating Moisturizer features a unique blend of hyaluronic acid complexes that provide 24-hour hydration while strengthening the skin's natural moisture barrier. This lightweight, fast-absorbing formula leaves skin plump, smooth, and radiant.",
+                    benefits: [
+                        "Provides intense 24-hour hydration",
+                        "Plumps and smooths skin texture",
+                        "Strengthens skin's moisture barrier",
+                        "Reduces appearance of fine lines",
+                        "Lightweight, non-greasy formula",
+                        "Suitable for all skin types"
+                    ],
+                    usage: "Apply to clean skin morning and evening. Use after serum and before sunscreen. Can be used alone or under makeup."
+                }
+            },
+            {
+                id: "p3",
+                name: "Sunscreen SPF 50",
+                description: "Lightweight broad spectrum protection",
+                price: 900,
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our lightweight SPF 50 sunscreen provides broad-spectrum UVA/UVB protection while feeling weightless on the skin. This non-greasy formula is enriched with antioxidants to protect against environmental damage and premature aging.",
+                    benefits: [
+                        "Broad-spectrum SPF 50 protection",
+                        "Lightweight, non-greasy formula",
+                        "Antioxidant protection against free radicals",
+                        "Water-resistant for up to 80 minutes",
+                        "Non-comedogenic and fragrance-free",
+                        "Suitable for sensitive skin"
+                    ],
+                    usage: "Apply liberally to face and neck 15 minutes before sun exposure. Reapply every 2 hours or immediately after swimming or sweating."
+                }
+            },
+            {
+                id: "p4",
+                name: "Night Repair Cream",
+                description: "Overnight rejuvenation treatment",
+                price: 2000,
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                details: {
+                    description: "Our Night Repair Cream works while you sleep to accelerate skin renewal and repair daily damage. This luxurious formula combines peptides, retinol, and nourishing botanicals to reduce wrinkles, improve elasticity, and reveal radiant morning skin.",
+                    benefits: [
+                        "Accelerates skin's natural renewal process",
+                        "Reduces appearance of fine lines and wrinkles",
+                        "Improves skin elasticity and firmness",
+                        "Repairs environmental damage",
+                        "Intensely hydrates and nourishes",
+                        "Wakes up to smoother, brighter skin"
+                    ],
+                    usage: "Apply to clean skin each night after serum. Avoid eye area. Use sunscreen during the day as retinol increases sun sensitivity."
+                }
+            }
+        ];
+
+        const galleryData = [
+            {
+                id: "g1",
+                image: "https://images.unsplash.com/photo-1599351431402-50a5a1a4d249?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Acne treatment before and after results"
+            },
+            {
+                id: "g2",
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Facial rejuvenation transformation"
+            },
+            {
+                id: "g3",
+                image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Signature facial results"
+            },
+            {
+                id: "g4",
+                image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Laser hair removal progress"
+            },
+            {
+                id: "g5",
+                image: "https://images.unsplash.com/photo-1620916297397-9fd3f9f1a97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Anti-aging treatment results"
+            },
+            {
+                id: "g6",
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "HydraFacial transformation"
+            }
+        ];
+
+        // Function to generate treatment cards
+        function generateTreatmentCards() {
+            const container = document.getElementById('treatments-container');
+            treatmentsData.forEach(treatment => {
+                const card = `
+                    <div class="treatment-card" data-id="${treatment.id}">
+                        ${treatment.badge ? `<div class="treatment-badge">${treatment.badge}</div>` : ''}
+                        <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${treatment.image}')"></div>
+                        <div class="card-content">
+                            <h3>${treatment.name}</h3>
+                            <p>${treatment.description}</p>
+                            <div class="price">
+                                <span>₹${treatment.price}</span>
+                                <button class="add-to-cart" data-id="${treatment.id}" data-name="${treatment.name}" data-price="${treatment.price}" data-type="treatment">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Function to generate service cards
+        function generateServiceCards() {
+            const container = document.getElementById('services-container');
+            servicesData.forEach(service => {
+                const card = `
+                    <div class="service-card" data-id="${service.id}">
+                        <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${service.image}')"></div>
+                        <div class="card-content">
+                            <h3>${service.name}</h3>
+                            <p>${service.description}</p>
+                            <div class="price">
+                                <span>₹${service.price}</span>
+                                <button class="add-to-cart" data-id="${service.id}" data-name="${service.name}" data-price="${service.price}" data-type="service">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Function to generate product cards
+        function generateProductCards() {
+            const container = document.getElementById('products-container');
+            productsData.forEach(product => {
+                const card = `
+                    <div class="product-card" data-id="${product.id}">
+                        <div class="card-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${product.image}')"></div>
+                        <div class="card-content">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <div class="price">
+                                <span>₹${product.price}</span>
+                                <button class="add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-type="product">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Function to generate gallery items
+        function generateGalleryItems() {
+            const container = document.getElementById('gallery-container');
+            galleryData.forEach(item => {
+                const galleryItem = `
+                    <div class="gallery-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${item.description}">
+                    </div>
+                `;
+                container.innerHTML += galleryItem;
+            });
+        }
+
+        // Function to generate detail modals
+        function generateDetailModals() {
+            const container = document.getElementById('modals-container');
+            
+            // Treatments modals
+            treatmentsData.forEach(treatment => {
+                const modal = `
+                    <div id="treatment-${treatment.id}" class="detail-modal">
+                        <div class="detail-modal-content">
+                            <span class="close-detail-modal">&times;</span>
+                            <div class="detail-image">
+                                <img src="${treatment.image.replace('500', '800')}" alt="${treatment.name}">
+                            </div>
+                            <div class="detail-content">
+                                <h2>${treatment.name}</h2>
+                                <div class="price">₹${treatment.price}</div>
+                                <p>${treatment.details.description}</p>
+                                
+                                <div class="detail-features">
+                                    <h3>Treatment Benefits</h3>
+                                    <ul class="feature-list">
+                                        ${treatment.details.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                ${treatment.details.process ? `
+                                <div class="detail-features">
+                                    <h3>Treatment Process</h3>
+                                    <p>${treatment.details.process}</p>
+                                </div>
+                                ` : ''}
+                                
+                                <div class="detail-actions">
+                                    <button class="book-btn">
+                                        <i class="fas fa-calendar-check"></i> Book Appointment
+                                    </button>
+                                    <button class="add-to-cart-btn" data-id="${treatment.id}" data-name="${treatment.name}" data-price="${treatment.price}" data-type="treatment">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += modal;
+            });
+            
+            // Services modals
+            servicesData.forEach(service => {
+                const modal = `
+                    <div id="service-${service.id}" class="detail-modal">
+                        <div class="detail-modal-content">
+                            <span class="close-detail-modal">&times;</span>
+                            <div class="detail-image">
+                                <img src="${service.image.replace('500', '800')}" alt="${service.name}">
+                            </div>
+                            <div class="detail-content">
+                                <h2>${service.name}</h2>
+                                <div class="price">₹${service.price}</div>
+                                <p>${service.details.description}</p>
+                                
+                                <div class="detail-features">
+                                    <h3>Service Benefits</h3>
+                                    <ul class="feature-list">
+                                        ${service.details.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                ${service.details.process ? `
+                                <div class="detail-features">
+                                    <h3>Service Process</h3>
+                                    <ul class="feature-list">
+                                        ${service.details.process.map(step => `<li>${step}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                ` : ''}
+                                
+                                <div class="detail-actions">
+                                    <button class="book-btn">
+                                        <i class="fas fa-calendar-check"></i> Book Appointment
+                                    </button>
+                                    <button class="add-to-cart-btn" data-id="${service.id}" data-name="${service.name}" data-price="${service.price}" data-type="service">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += modal;
+            });
+            
+            // Products modals
+            productsData.forEach(product => {
+                const modal = `
+                    <div id="product-${product.id}" class="detail-modal">
+                        <div class="detail-modal-content">
+                            <span class="close-detail-modal">&times;</span>
+                            <div class="detail-image">
+                                <img src="${product.image.replace('500', '800')}" alt="${product.name}">
+                            </div>
+                            <div class="detail-content">
+                                <h2>${product.name}</h2>
+                                <div class="price">₹${product.price}</div>
+                                <p>${product.details.description}</p>
+                                
+                                <div class="detail-features">
+                                    <h3>Key Benefits</h3>
+                                    <ul class="feature-list">
+                                        ${product.details.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-features">
+                                    <h3>How to Use</h3>
+                                    <p>${product.details.usage}</p>
+                                </div>
+                                
+                                <div class="detail-actions">
+                                    <button class="add-to-cart-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-type="product" style="flex:1">
+                                        <i class="fas fa-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += modal;
+            });
+            
+            // Gallery modals
+            galleryData.forEach(item => {
+                const modal = `
+                    <div id="gallery-${item.id}" class="detail-modal">
+                        <div class="gallery-modal-content">
+                            <span class="close-detail-modal">&times;</span>
+                            <div class="detail-image">
+                                <img src="${item.image.replace('500', '1200')}" alt="${item.description}">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += modal;
+            });
+        }
+
+        // Initialize page content
+        window.addEventListener('DOMContentLoaded', () => {
+            generateTreatmentCards();
+            generateServiceCards();
+            generateProductCards();
+            generateGalleryItems();
+            generateDetailModals();
+            
+            // Initialize event listeners
+            initEventListeners();
+        });
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // Add to cart functionality
+            document.addEventListener('click', function(e) {
+                // Add to cart buttons
+                if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn')) {
+                    const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn');
+                    const id = button.dataset.id;
+                    const name = button.dataset.name;
+                    const price = parseFloat(button.dataset.price);
+                    const type = button.dataset.type;
+                    
+                    // Check if item already in cart
+                    const existingItem = cart.find(item => item.id === id);
+                    
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({
+                            id,
+                            name,
+                            price,
+                            type,
+                            quantity: 1
+                        });
+                    }
+                    
+                    updateCart();
+                    showNotification(`${name} added to cart!`);
+                }
+                
+                // Open cart modal
+                if (e.target.closest('.cart-icon')) {
+                    openCartModal();
+                }
+                
+                // Close modal
+                if (e.target.classList.contains('close-modal') || e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+                
+                // Close detail modal
+                if (e.target.classList.contains('close-detail-modal') || 
+                    (e.target.classList.contains('detail-modal') && !e.target.closest('.detail-modal-content'))) {
+                    document.querySelectorAll('.detail-modal').forEach(modal => modal.style.display = 'none');
+                }
+                
+                // Open treatment/service/product details
+                if (e.target.closest('.treatment-card') || e.target.closest('.service-card') || e.target.closest('.product-card')) {
+                    const card = e.target.closest('.treatment-card') || 
+                                 e.target.closest('.service-card') || 
+                                 e.target.closest('.product-card');
+                    const id = card.dataset.id;
+                    const type = card.classList.contains('treatment-card') ? 'treatment' : 
+                                card.classList.contains('service-card') ? 'service' : 'product';
+                    
+                    // Close any open modals
+                    document.querySelectorAll('.detail-modal').forEach(modal => modal.style.display = 'none');
+                    
+                    // Open the specific modal
+                    const modal = document.getElementById(`${type}-${id}`);
+                    if (modal) {
+                        modal.style.display = 'flex';
+                    }
+                }
+                
+                // Open gallery details
+                if (e.target.closest('.gallery-item')) {
+                    const galleryItem = e.target.closest('.gallery-item');
+                    const id = galleryItem.dataset.id;
+                    
+                    // Close any open modals
+                    document.querySelectorAll('.detail-modal').forEach(modal => modal.style.display = 'none');
+                    
+                    // Open the specific modal
+                    const modal = document.getElementById(`gallery-${id}`);
+                    if (modal) {
+                        modal.style.display = 'flex';
+                    }
+                }
+            });
+
+            // Handle quantity changes
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('quantity-btn')) {
+                    const button = e.target;
+                    const id = button.dataset.id;
+                    const item = cart.find(item => item.id === id);
+                    
+                    if (button.classList.contains('plus')) {
+                        item.quantity++;
+                    } else if (button.classList.contains('minus')) {
+                        item.quantity--;
+                        if (item.quantity <= 0) {
+                            cart = cart.filter(cartItem => cartItem.id !== id);
+                        }
+                    }
+                    
+                    updateCart();
+                    openCartModal();
+                }
+            });
+
+            // Handle form submission
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('fullName').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                const pincode = document.getElementById('pincode').value;
+                
+                // Create WhatsApp message
+                let message = `*New Order from Lumière Beauty Clinic*%0A%0A`;
+                message += `*Customer Details:*%0A`;
+                message += `Name: ${fullName}%0A`;
+                message += `Phone: ${phone}%0A`;
+                message += `Address: ${address}%0A`;
+                message += `Pincode: ${pincode}%0A%0A`;
+                message += `*Order Summary:*%0A`;
+                
+                let total = 0;
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    message += `- ${item.name} (${item.type}) x ${item.quantity}: ₹${itemTotal}%0A`;
+                });
+                
+                message += `%0A*Total Amount: ₹${total.toFixed(2)}*`;
+                
+                // Encode message and create WhatsApp URL
+                const whatsappUrl = `https://wa.me/917864489076?text=${message}`;
+                
+                // Redirect to WhatsApp
+                window.location.href = whatsappUrl;
+                
+                // Close modal and reset cart
+                cartModal.style.display = 'none';
+                cart = [];
+                updateCart();
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.padding = '12px 24px';
+            notification.style.backgroundColor = '#6a11cb';
+            notification.style.color = 'white';
+            notification.style.borderRadius = '50px';
+            notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            notification.style.zIndex = '3000';
+            notification.style.animation = 'slideIn 0.3s ease-out';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+
+        // Add animation keyframes to style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                0% { transform: translateY(100px); opacity: 0; }
+                100% { transform: translateY(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(100px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Update cart UI
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        // Open cart modal and render items
+        function openCartModal() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">Your cart is empty</p>';
+                totalAmountElement.textContent = '₹0.00';
+            } else {
+                let totalAmount = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    totalAmount += itemTotal;
+                    
+                    cartItemsContainer.innerHTML += `
+                        <div class="cart-item">
+                            <div class="item-details">
+                                <div>
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-type">${item.type.charAt(0).toUpperCase() + item.type.slice(1)}</div>
+                                </div>
+                            </div>
+                            <div class="item-quantity">
+                                <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                            </div>
+                            <div class="item-price">₹${itemTotal}</div>
+                        </div>
+                    `;
+                });
+                
+                totalAmountElement.textContent = `₹${totalAmount.toFixed(2)}`;
+            }
+            
+            cartModal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
