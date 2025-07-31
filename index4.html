@@ -389,6 +389,24 @@
       }
       .footer-grid { flex-direction: column; gap: 1.5rem; }
     }
+    .gallery-card {
+  animation: fadeInUp 0.5s cubic-bezier(.39,.575,.565,1.000);
+  box-shadow: 0 8px 32px rgba(155, 107, 255, 0.24);
+  border-radius: 16px;
+}
+
+.gallery-desc {
+  text-align: center;
+  color: #632c65;
+  font-size: 1.07em;
+  margin-top: 0.5em;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
   </style>
 </head>
 <body>
@@ -504,6 +522,14 @@
     <img id="detailImage" src="" alt="" style="width:100%; border-radius:12px; margin-bottom:1em;" />
     <p id="detailDescription"></p>
     <p><strong>Price: </strong>₹<span id="detailPrice"></span></p>
+  </div>
+</div>
+<!-- Gallery Detail Modal -->
+<div id="galleryModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle" aria-hidden="true">
+  <div class="modal-content gallery-card" tabindex="0">
+    <button class="close-modal" aria-label="Close">&times;</button>
+    <img id="galleryModalImg" src="" alt="" style="width:100%;border-radius:14px;margin-bottom:1em;">
+    <div id="galleryModalText" class="gallery-desc"></div>
   </div>
 </div>
   <footer id="contact">
@@ -667,14 +693,18 @@ window.addEventListener('keydown', e => {
       {
         id: "gallery1",
         image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
-        alt: "Before and After Treatment 1"
+        alt: "Before and After Treatment 1",
+        desc: "Our client saw radiant skin transformation after a hydrating facial."
       },
       {
         id: "gallery2",
         image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80",
-        alt: "Before and After Treatment 2"
+        alt: "Before and After Treatment 2",
+        desc: "Our client saw radiant skin transformation after a hydrating facial."
       }
     ];
+
+
 
     // DOM Elements
     const navLinks = document.getElementById('navLinks');
@@ -843,12 +873,17 @@ window.addEventListener('keydown', e => {
         return;
       }
 
-      let message = `*Sunaina Beauty Clinic Order*\n\nCustomer: ${fullName}\nPhone: ${phone}\nAddress: ${address}, Pincode: ${pincode}\n\nOrder Details:\n`;
-      cart.forEach(item => {
-        message += `- ${item.name} x${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}\n`;
-      });
-      const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      message += `\nTotal Amount: ₹${total.toFixed(2)}\n\nPlease process this order.`;
+      let message = `*🧾 Sunaina Beauty Clinic Invoice*\n---------------------------------------\n`;
+message += `*Customer:* ${fullName}\n*Phone:* ${phone}\n*Address:* ${address}, ${pincode}\n\n*Items:*\n`;
+
+cart.forEach((item, idx) => {
+  message += `• ${item.name} x${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+});
+
+message += "---------------------------------------\n";
+message += `*TOTAL: ₹${total.toFixed(2)}*\n\n`;
+message += `Thank you for shopping with us!\n_This is your official invoice from Sunaina Beauty Clinic._`;
+
 
       const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
       window.open(waURL, '_blank');
@@ -876,10 +911,12 @@ window.addEventListener('keydown', e => {
         return;
       }
 
-      let message = `*Sunaina Beauty Clinic Booking*\n\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nTime: ${time}\nType: ${type}\n`;
-      if (notes) message += `Notes: ${notes}\n`;
+      let message = `*📅 Sunaina Beauty Clinic Appointment Request*\n--------------------------------------\n`;
+message += `*Name:* ${name}\n*Phone:* ${phone}\n*Date & Time:* ${date} at ${time}\n*Type:* ${type}\n`;
+if (notes) message += `*Notes:* ${notes}\n`;
+message += "--------------------------------------\n";
+message += `_Please confirm my appointment. Thank you!_`;
 
-      message += "\nPlease confirm my booking.";
 
       const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
       window.open(waURL, '_blank');
@@ -917,6 +954,40 @@ window.addEventListener('keydown', e => {
         });
       }
     });
+    const galleryModal = document.getElementById('galleryModal');
+const galleryModalImg = document.getElementById('galleryModalImg');
+const galleryModalText = document.getElementById('galleryModalText');
+
+// Open gallery modal on image click
+galleryContainer.addEventListener('click', e => {
+  const imgDiv = e.target.closest('div');
+  if (!imgDiv) return;
+  const idx = [...galleryContainer.children].indexOf(imgDiv);
+  const item = galleryData[idx];
+  if (!item) return;
+  galleryModalImg.src = item.image;
+  galleryModalImg.alt = item.alt || 'Gallery image';
+  galleryModalText.textContent = item.desc || '';
+  galleryModal.classList.add('show');
+  galleryModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  galleryModal.querySelector('.modal-content').focus();
+});
+
+galleryModal.querySelector('.close-modal').addEventListener('click', () => {
+  galleryModal.classList.remove('show');
+  galleryModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+});
+
+galleryModal.addEventListener('click', e => {
+  if (e.target === galleryModal) {
+    galleryModal.classList.remove('show');
+    galleryModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+});
+
   </script>
 </body>
 </html>
