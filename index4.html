@@ -236,10 +236,81 @@
     .detail-actions .add-to-cart-btn { flex: 1; min-width: 120px; }
 
     /* Forms */
-    .booking-form,
+    /* .booking-form,
     .checkout-form form {
       display: grid; gap: 1em;
-    }
+    } */
+    .modal-content,
+.checkout-form,
+.booking-form {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  padding: 1.5rem 1.5rem 2rem; /* Add bottom padding for scrolling comfort */
+  margin: 1rem auto;
+  overflow-y: auto;
+  max-height: 90vh; /* Limit max height so modal fits vertically on mobile */
+  border-radius: 16px;
+  background: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-form form,
+.booking-form {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.checkout-form input,
+.checkout-form textarea,
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding/border included in width */
+  padding: 0.6em 1em;
+  border-radius: 8px;
+  border: 1px solid #cfcfea;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  border-color: var(--primary);
+}
+
+/* Reduce modal padding on very small screens */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem 1rem 1.5rem;
+    max-width: 95vw;
+  }
+  .checkout-form,
+  .booking-form {
+    max-height: 85vh;
+  }
+}
+
+/* Ensure modals never overflow horizontally */
+.modal {
+  padding: 1rem;
+  overflow-x: hidden;
+}
+
+/* Close button adjusted for smaller screens to avoid overlap */
+.close-modal {
+  top: 8px;
+  right: 8px;
+  font-size: 1.3rem;
+  padding: 0.25rem 0.5rem;
+}
     .booking-form input,
     .booking-form select,
     .booking-form textarea,
