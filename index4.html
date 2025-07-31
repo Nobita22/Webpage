@@ -9,21 +9,9 @@
   <!-- Preconnect & Preload -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:400,600,700,800&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="preload"
-    as="style"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700,800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     :root {
@@ -34,8 +22,6 @@
       --light: #f9f7fe;
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
-    /* Base */
     html { scroll-behavior: smooth; }
     body {
       margin: 0; padding: 0;
@@ -49,8 +35,6 @@
       outline: 2px dashed var(--primary);
       outline-offset: 3px;
     }
-
-    /* Header & Nav */
     header {
       position: fixed; top: 0; left: 0; width: 100%;
       background: rgba(255,255,255,0.95);
@@ -105,8 +89,6 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 0.75rem; font-weight: bold;
     }
-
-    /* Hero */
     .hero {
       margin-top: 94px; padding: 130px 0 100px;
       text-align: center; color: #fff;
@@ -127,8 +109,6 @@
     }
     .cta-button:hover,
     .cta-button:focus { background: var(--primary); }
-
-    /* Sections */
     section { padding: 64px 0; text-align: center; }
     .section-title h2 {
       font-size: 2.3em;
@@ -136,8 +116,6 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .section-title p { color: #555; line-height: 1.5; }
-
-    /* Grids */
     .treatments-grid,
     .services-grid,
     .products-grid,
@@ -152,8 +130,6 @@
     .gallery-grid {
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
-
-    /* Cards */
     .treatment-card,
     .service-card,
     .product-card {
@@ -192,8 +168,6 @@
       padding: 4px 12px; border-radius: 12px;
       font-size: 0.85em; font-weight: 600;
     }
-
-    /* Modals */
     .modal,
     .detail-modal {
       position: fixed; inset: 0;
@@ -201,6 +175,8 @@
       display: none; align-items: center; justify-content: center;
       overflow-y: auto; -webkit-overflow-scrolling: touch;
       z-index: 1100;
+      padding: 1rem;
+      overflow-x: hidden;
     }
     .modal.show,
     .detail-modal.show {
@@ -214,109 +190,34 @@
       padding: 1.5rem;
       box-shadow: 0 10px 40px rgba(161,140,209,0.3);
       position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    .detail-modal-content {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    }
-    .gallery-modal-content img { width: 100%; border-radius: 12px; }
     .close-modal,
     .close-detail-modal {
-      position: absolute; top: 12px; right: 12px;
-      background: none; border: none; font-size: 1.5rem;
+      position: absolute; top: 8px; right: 8px;
+      background: none; border: none; font-size: 1.3rem;
       cursor: pointer; color: #666; transition: color 0.3s;
+      padding: 0.25rem 0.5rem;
+      z-index: 10;
     }
     .close-modal:hover,
     .close-detail-modal:hover { color: var(--primary); }
-    .detail-content { padding: 0.5rem 0; }
-    .detail-content h2 { margin-top: 0; }
-    .feature-list {
-      text-align: left; margin: 0.5em 0 1em; padding-left: 1.2em;
-    }
-    .detail-actions { display: flex; gap: 0.5em; flex-wrap: wrap; }
-    .detail-actions .add-to-cart-btn { flex: 1; min-width: 120px; }
-
-    /* Forms */
-    /* .booking-form,
+    .booking-form,
     .checkout-form form {
       display: grid; gap: 1em;
-    } */
-    .modal-content,
-.checkout-form,
-.booking-form {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 600px;
-  padding: 1.5rem 1.5rem 2rem; /* Add bottom padding for scrolling comfort */
-  margin: 1rem auto;
-  overflow-y: auto;
-  max-height: 90vh; /* Limit max height so modal fits vertically on mobile */
-  border-radius: 16px;
-  background: #fff;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.checkout-form form,
-.booking-form {
-  display: grid;
-  gap: 1rem;
-  width: 100%;
-}
-
-.checkout-form input,
-.checkout-form textarea,
-.booking-form input,
-.booking-form select,
-.booking-form textarea {
-  width: 100%;
-  box-sizing: border-box; /* Ensure padding/border included in width */
-  padding: 0.6em 1em;
-  border-radius: 8px;
-  border: 1px solid #cfcfea;
-  font-size: 1em;
-  transition: border-color 0.3s;
-}
-
-.checkout-form input:focus,
-.checkout-form textarea:focus,
-.booking-form input:focus,
-.booking-form select:focus,
-.booking-form textarea:focus {
-  border-color: var(--primary);
-}
-
-/* Reduce modal padding on very small screens */
-@media (max-width: 480px) {
-  .modal-content {
-    padding: 1rem 1rem 1.5rem;
-    max-width: 95vw;
-  }
-  .checkout-form,
-  .booking-form {
-    max-height: 85vh;
-  }
-}
-
-/* Ensure modals never overflow horizontally */
-.modal {
-  padding: 1rem;
-  overflow-x: hidden;
-}
-
-/* Close button adjusted for smaller screens to avoid overlap */
-.close-modal {
-  top: 8px;
-  right: 8px;
-  font-size: 1.3rem;
-  padding: 0.25rem 0.5rem;
-}
+      width: 100%;
+    }
     .booking-form input,
     .booking-form select,
     .booking-form textarea,
     .checkout-form input,
     .checkout-form textarea {
-      width: 100%; padding: 0.6em 1em;
+      width: 100%; box-sizing: border-box;
+      padding: 0.6em 1em;
       border: 1px solid #cfcfea; border-radius: 8px;
       font-size: 1em; transition: border-color 0.3s;
     }
@@ -326,6 +227,7 @@
     .checkout-form input:focus,
     .checkout-form textarea:focus {
       border-color: var(--primary);
+      outline: none;
     }
     .booking-form button,
     .submit-btn {
@@ -337,8 +239,6 @@
     }
     .booking-form button:hover,
     .submit-btn:hover { background: var(--accent); }
-
-    /* Footer */
     footer {
       background: #fff; padding: 3rem 5%; color: #444;
     }
@@ -365,11 +265,10 @@
       text-align: center; margin-top: 2rem; font-size: 0.8em;
       color: #777;
     }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      nav { padding: 0 1rem; }
-    }
+    .gallery-card { animation: fadeInUp 0.5s cubic-bezier(.39,.575,.565,1.000); box-shadow: 0 8px 32px rgba(155, 107, 255, 0.24); border-radius: 16px; }
+    .gallery-desc { text-align: center; color: #632c65; font-size: 1.07em; margin-top: 0.5em; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 1024px) { nav { padding: 0 1rem; } }
     @media (max-width: 768px) {
       .burger { display: flex; }
       .nav-links {
@@ -384,29 +283,26 @@
       .hero { padding: 80px 0 70px; }
       .hero h1 { font-size: 2.15em; }
       .section-title h2 { font-size: 1.8em; }
-      .detail-modal-content {
-        display: flex; flex-direction: column;
-      }
       .footer-grid { flex-direction: column; gap: 1.5rem; }
     }
-    .gallery-card {
-  animation: fadeInUp 0.5s cubic-bezier(.39,.575,.565,1.000);
-  box-shadow: 0 8px 32px rgba(155, 107, 255, 0.24);
-  border-radius: 16px;
-}
-
-.gallery-desc {
-  text-align: center;
-  color: #632c65;
-  font-size: 1.07em;
-  margin-top: 0.5em;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
+    @media (max-width: 480px) {
+      .modal-content { max-width: 95vw; padding: 1rem 1rem 1.5rem; }
+      .checkout-form, .booking-form { max-height: 85vh; }
+    }
+    .cart-qty-btn {
+      background: #eee; border: none;
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      font-size: 1.25em;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .cart-qty-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -514,24 +410,27 @@
       </form>
     </div>
   </div>
-<!-- Detail Modal -->
-<div id="detailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true">
-  <div class="modal-content" tabindex="0">
-    <button class="close-modal" aria-label="Close">&times;</button>
-    <h2 id="detailTitle"></h2>
-    <img id="detailImage" src="" alt="" style="width:100%; border-radius:12px; margin-bottom:1em;" />
-    <p id="detailDescription"></p>
-    <p><strong>Price: </strong>₹<span id="detailPrice"></span></p>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true">
+    <div class="modal-content" tabindex="0">
+      <button class="close-modal" aria-label="Close">&times;</button>
+      <h2 id="detailTitle"></h2>
+      <img id="detailImage" src="" alt="" style="width:100%; border-radius:12px; margin-bottom:1em;" />
+      <p id="detailDescription"></p>
+      <p><strong>Price: </strong>₹<span id="detailPrice"></span></p>
+    </div>
   </div>
-</div>
-<!-- Gallery Detail Modal -->
-<div id="galleryModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle" aria-hidden="true">
-  <div class="modal-content gallery-card" tabindex="0">
-    <button class="close-modal" aria-label="Close">&times;</button>
-    <img id="galleryModalImg" src="" alt="" style="width:100%;border-radius:14px;margin-bottom:1em;">
-    <div id="galleryModalText" class="gallery-desc"></div>
+
+  <!-- Gallery Detail Modal -->
+  <div id="galleryModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle" aria-hidden="true">
+    <div class="modal-content gallery-card" tabindex="0">
+      <button class="close-modal" aria-label="Close">&times;</button>
+      <img id="galleryModalImg" src="" alt="" style="width:100%;border-radius:14px;margin-bottom:1em;">
+      <div id="galleryModalText" class="gallery-desc"></div>
+    </div>
   </div>
-</div>
+
   <footer id="contact">
     <div class="footer-grid">
       <div class="footer-column">
@@ -563,431 +462,409 @@
     <div class="copyright">&copy; 2025 Sunaina Beauty Clinic. All rights reserved.</div>
   </footer>
 
-  <script>
-    const detailModal = document.getElementById('detailModal');
-const detailTitle = document.getElementById('detailTitle');
-const detailImage = document.getElementById('detailImage');
-const detailDescription = document.getElementById('detailDescription');
-const detailPrice = document.getElementById('detailPrice');
+<script>
+  // Your complete JavaScript including all requested features
 
-// Helper: find item by id from datasets
-function findItemById(id) {
-  return (
-    treatmentsData.find(i => i.id === id) ||
-    servicesData.find(i => i.id === id) ||
-    productsData.find(i => i.id === id) ||
-    null
-  );
-}
+  // ---- DATA ARRAYS ---- //
+  const treatmentsData = [
+    {
+      id: "treat1",
+      name: "Hydrating Facial",
+      description: "Rejuvenate your skin with deep hydration.",
+      price: 1500,
+      image: "https://images.unsplash.com/photo-1576765607921-b84ce03c76a0?auto=format&fit=crop&w=400&q=80",
+      badge: "New"
+    },
+    {
+      id: "treat2",
+      name: "Anti-Aging Therapy",
+      description: "Combat wrinkles and fine lines effectively.",
+      price: 3000,
+      image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80",
+      badge: ""
+    }
+  ];
 
-// Show detail modal with item info
-function showDetailModal(item) {
-  if (!item) return;
-  detailTitle.textContent = item.name || '';
-  detailImage.src = item.image || '';
-  detailImage.alt = item.name || 'Detail image';
-  detailDescription.textContent = item.description || '';
-  detailPrice.textContent = item.price ? item.price.toFixed(2) : 'N/A';
+  const servicesData = [
+    {
+      id: "serv1",
+      name: "Skin Consultation",
+      description: "Personalized skin care expert advice.",
+      price: 500,
+      image: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      id: "serv2",
+      name: "Makeup Session",
+      description: "Look your best with professional makeup.",
+      price: 2500,
+      image: "https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=400&q=80"
+    }
+  ];
 
-  detailModal.classList.add('show');
-  detailModal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+  const productsData = [
+    {
+      id: "prod1",
+      name: "Glow Serum",
+      description: "Enhance your skin’s radiance.",
+      price: 1200,
+      image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      id: "prod2",
+      name: "Anti-Wrinkle Cream",
+      description: "Reduce the appearance of wrinkles.",
+      price: 1800,
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+    }
+  ];
 
-  // Focus modal content for accessibility
-  detailModal.querySelector('.modal-content').focus();
-}
+  const galleryData = [
+    {
+      id: "gallery1",
+      image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+      alt: "Before and After Treatment 1",
+      desc: "Our client saw radiant skin transformation after a hydrating facial."
+    },
+    {
+      id: "gallery2",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80",
+      alt: "Before and After Treatment 2",
+      desc: "This shows the glow and rejuvenation after our signature anti-aging therapy."
+    }
+  ];
 
-// Hide detail modal
-function hideDetailModal() {
-  detailModal.classList.remove('show');
-  detailModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
+  // ---- DOM ELEMENTS ---- //
+  const navLinks = document.getElementById('navLinks');
+  const burger = document.getElementById('burger');
+  const cartIcon = document.getElementById('cartIcon');
+  const cartModal = document.getElementById('cartModal');
+  const bookingModal = document.getElementById('bookingModal');
+  const treatmentsContainer = document.getElementById('treatments-container');
+  const servicesContainer = document.getElementById('services-container');
+  const productsContainer = document.getElementById('products-container');
+  const galleryContainer = document.getElementById('gallery-container');
+  const cartCountSpan = document.querySelector('.cart-count');
+  const cartItemsDiv = cartModal.querySelector('.cart-items');
+  const totalAmountSpan = document.getElementById('totalAmount');
+  const openBookingBtn = document.getElementById('openBookingBtn');
+  const bookingForm = document.getElementById('bookingForm');
+  const checkoutForm = document.getElementById('checkoutForm');
 
-// Listen for clicks on cards (event delegation)
-document.body.addEventListener('click', e => {
-  const card = e.target.closest('.treatment-card, .service-card, .product-card');
-  if (card && !e.target.closest('button')) { // don't trigger if clicking button inside card
-    const id = card.getAttribute('data-id');
-    const item = findItemById(id);
-    if (item) {
-      showDetailModal(item);
+  // For gallery modal:
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryModalImg = document.getElementById('galleryModalImg');
+  const galleryModalText = document.getElementById('galleryModalText');
+
+  // For detail modal (card click)
+  const detailModal = document.getElementById('detailModal');
+  const detailTitle = detailModal ? document.getElementById('detailTitle') : null;
+  const detailImage = detailModal ? document.getElementById('detailImage') : null;
+  const detailDescription = detailModal ? document.getElementById('detailDescription') : null;
+  const detailPrice = detailModal ? document.getElementById('detailPrice') : null;
+
+  // ---- STATE ---- //
+  let cart = [];
+
+  // ---- NAV TOGGLE ---- //
+  burger.addEventListener('click', () => {
+    const expanded = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!expanded));
+    navLinks.classList.toggle('show');
+  });
+
+  // ---- MODAL HELPERS ---- //
+  function toggleModal(modal, show) {
+    if (show) {
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // Focus first button/input
+      const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable) focusable.focus();
+    } else {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
     }
   }
-});
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', e => toggleModal(e.target.closest('.modal'), false));
+  });
 
-// Close modal on close button click
-detailModal.querySelector('.close-modal').addEventListener('click', () => {
-  hideDetailModal();
-});
-
-// Close modal on clicking outside modal-content
-detailModal.addEventListener('click', e => {
-  if (e.target === detailModal) {
-    hideDetailModal();
+  // ---- CARD DETAIL MODAL (on card click) ---- //
+  function findItemById(id) {
+    return (
+      treatmentsData.find(i => i.id === id) ||
+      servicesData.find(i => i.id === id) ||
+      productsData.find(i => i.id === id) ||
+      null
+    );
   }
-});
 
-// Optional: Close modal on ESC key pressed
-window.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && detailModal.classList.contains('show')) {
-    hideDetailModal();
+  function showDetailModal(item) {
+    if (!item || !detailModal) return;
+    detailTitle.textContent = item.name || '';
+    detailImage.src = item.image || '';
+    detailImage.alt = item.name || 'Detail image';
+    detailDescription.textContent = item.description || '';
+    detailPrice.textContent = item.price ? item.price.toFixed(2) : 'N/A';
+    toggleModal(detailModal, true);
   }
-});
+  function hideDetailModal() {
+    if (detailModal) toggleModal(detailModal, false);
+  }
 
-    // Data arrays (sample data for demonstration)
-    const treatmentsData = [
-      {
-        id: "treat1",
-        name: "Hydrating Facial",
-        description: "Rejuvenate your skin with deep hydration.",
-        price: 1500,
-        image: "https://images.unsplash.com/photo-1576765607921-b84ce03c76a0?auto=format&fit=crop&w=400&q=80",
-        badge: "New"
-      },
-      {
-        id: "treat2",
-        name: "Anti-Aging Therapy",
-        description: "Combat wrinkles and fine lines effectively.",
-        price: 3000,
-        image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80",
-        badge: ""
-      }
-    ];
-
-    const servicesData = [
-      {
-        id: "serv1",
-        name: "Skin Consultation",
-        description: "Personalized skin care expert advice.",
-        price: 500,
-        image: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=400&q=80"
-      },
-      {
-        id: "serv2",
-        name: "Makeup Session",
-        description: "Look your best with professional makeup.",
-        price: 2500,
-        image: "https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=400&q=80"
-      }
-    ];
-
-    const productsData = [
-      {
-        id: "prod1",
-        name: "Glow Serum",
-        description: "Enhance your skin’s radiance.",
-        price: 1200,
-        image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?auto=format&fit=crop&w=400&q=80"
-      },
-      {
-        id: "prod2",
-        name: "Anti-Wrinkle Cream",
-        description: "Reduce the appearance of wrinkles.",
-        price: 1800,
-        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
-      }
-    ];
-
-    const galleryData = [
-      {
-        id: "gallery1",
-        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
-        alt: "Before and After Treatment 1",
-        desc: "Our client saw radiant skin transformation after a hydrating facial."
-      },
-      {
-        id: "gallery2",
-        image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80",
-        alt: "Before and After Treatment 2",
-        desc: "Our client saw radiant skin transformation after a hydrating facial."
-      }
-    ];
-
-
-
-    // DOM Elements
-    const navLinks = document.getElementById('navLinks');
-    const burger = document.getElementById('burger');
-    const cartIcon = document.getElementById('cartIcon');
-    const cartModal = document.getElementById('cartModal');
-    const bookingModal = document.getElementById('bookingModal');
-    const treatmentsContainer = document.getElementById('treatments-container');
-    const servicesContainer = document.getElementById('services-container');
-    const productsContainer = document.getElementById('products-container');
-    const galleryContainer = document.getElementById('gallery-container');
-    const cartCountSpan = document.querySelector('.cart-count');
-    const cartItemsDiv = cartModal.querySelector('.cart-items');
-    const totalAmountSpan = document.getElementById('totalAmount');
-    const openBookingBtn = document.getElementById('openBookingBtn');
-    const bookingForm = document.getElementById('bookingForm');
-    const checkoutForm = document.getElementById('checkoutForm');
-
-    // State
-    let cart = [];
-
-    // Toggle nav for mobile
-    burger.addEventListener('click', () => {
-      const expanded = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!expanded));
-      navLinks.classList.toggle('show');
-    });
-
-    // Toggle modal helper + accessibility updates
-    function toggleModal(modal, show) {
-      if (show) {
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // prevent background scroll
-        // Focus trap logic could be added here
-        // Focus first focusable element inside modal
-        const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if (focusable) focusable.focus();
-      } else {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        // Return focus to previously focused element (optional)
-      }
+  // Card click opens detail modal
+  document.body.addEventListener('click', e => {
+    const card = e.target.closest('.treatment-card, .service-card, .product-card');
+    if (card && !e.target.closest('button')) {
+      const id = card.getAttribute('data-id');
+      const item = findItemById(id);
+      if (item) showDetailModal(item);
     }
+  });
+  // Close detail modal
+  if (detailModal) {
+    detailModal.querySelector('.close-modal').addEventListener('click', hideDetailModal);
+    detailModal.addEventListener('click', e => {if (e.target === detailModal) hideDetailModal();});
+    window.addEventListener('keydown', e => {if (e.key === 'Escape' && detailModal.classList.contains('show')) hideDetailModal();});
+  }
 
-    // Close modal buttons
-    document.querySelectorAll('.close-modal').forEach(btn => {
-      btn.addEventListener('click', e => {
-        toggleModal(e.target.closest('.modal'), false);
-      });
-    });
-
-    // Open booking modal
-    openBookingBtn.addEventListener('click', () => {
-      // Set min date to today
-      const today = new Date().toISOString().slice(0, 10);
-      document.getElementById('bookingDate').setAttribute('min', today);
-      toggleModal(bookingModal, true);
-    });
-
-    // Render grid helper function
-    function renderGrid(data, container, type) {
-      container.innerHTML = data.map(item => {
-        const badge = item.badge ? `<div class="treatment-badge">${item.badge}</div>` : '';
-        return `
-          <div class="${type}-card" data-id="${item.id}" style="position:relative;" tabindex="0" aria-label="${item.name} - ₹${item.price}">
-            ${badge}
-            <div class="card-img" style="background-image:url('${item.image}')"></div>
-            <div class="card-content">
-              <h3>${item.name}</h3>
-              <p>${item.description}</p>
-              <div class="price">
-                <span>₹${item.price}</span>
-                <button class="add-to-cart" aria-label="Add ${item.name} to cart" data-id="${item.id}" data-type="${type}">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
+  // ---- RENDER GRID ---- //
+  function renderGrid(data, container, type) {
+    container.innerHTML = data.map(item => {
+      const badge = item.badge ? `<div class="treatment-badge">${item.badge}</div>` : '';
+      return `
+        <div class="${type}-card" data-id="${item.id}" tabindex="0" aria-label="${item.name} - ₹${item.price}">
+          ${badge}
+          <div class="card-img" style="background-image:url('${item.image}')"></div>
+          <div class="card-content">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <div class="price">
+              <span>₹${item.price}</span>
+              <button class="add-to-cart" aria-label="Add ${item.name} to cart" data-id="${item.id}" data-type="${type}">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
           </div>
-        `;
-      }).join('');
-    }
-
-    // Update cart count preview
-    function updateCartCount() {
-      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-      cartCountSpan.textContent = count;
-    }
-
-    // Render cart items inside modal
-    function renderCart() {
-      if (!cart.length) {
-        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
-        totalAmountSpan.textContent = '₹0.00';
-        return;
-      }
-      cartItemsDiv.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.style = 'display:flex; justify-content: space-between; margin-bottom:0.5em;';
-        div.innerHTML = `
-          <span>${item.name} <strong>(x${item.quantity})</strong></span>
-          <span>₹${item.price * item.quantity}</span>
-        `;
-        cartItemsDiv.appendChild(div);
-      });
-      totalAmountSpan.textContent = `₹${total.toFixed(2)}`;
-    }
-
-    // Add item to cart helper
-    function addToCart(itemId, type) {
-      let productList;
-      switch(type) {
-        case 'treatment': productList = treatmentsData; break;
-        case 'service': productList = servicesData; break;
-        case 'product': productList = productsData; break;
-        default: return;
-      }
-      const item = productList.find(i => i.id === itemId);
-      if (!item) return;
-
-      const existing = cart.find(ci => ci.id === itemId);
-      if (existing) {
-        existing.quantity++;
-      } else {
-        cart.push({...item, quantity: 1});
-      }
-      updateCartCount();
-      alert(`Added "${item.name}" to cart.`);
-    }
-
-    // Event delegation for add to cart buttons
-    document.body.addEventListener('click', e => {
-      if (e.target.closest('.add-to-cart')) {
-        const btn = e.target.closest('.add-to-cart');
-        const id = btn.getAttribute('data-id');
-        const type = btn.getAttribute('data-type');
-        addToCart(id, type);
-      }
-    });
-
-    // Cart icon click opens cart modal
-    cartIcon.addEventListener('click', () => {
-      renderCart();
-      toggleModal(cartModal, true);
-    });
-
-    // Handle checkout form submission: send WhatsApp message
-    checkoutForm.addEventListener('submit', e => {
-      e.preventDefault();
-      if (!cart.length) {
-        alert('Your cart is empty.');
-        return;
-      }
-      const fullName = e.target.fullName.value.trim();
-      const phone = e.target.phone.value.trim();
-      const address = e.target.address.value.trim();
-      const pincode = e.target.pincode.value.trim();
-
-      if (!fullName || !phone || !address || !pincode) {
-        alert('Please fill all checkout fields.');
-        return;
-      }
-
-      let message = `*🧾 Sunaina Beauty Clinic Invoice*\n---------------------------------------\n`;
-message += `*Customer:* ${fullName}\n*Phone:* ${phone}\n*Address:* ${address}, ${pincode}\n\n*Items:*\n`;
-
-cart.forEach((item, idx) => {
-  message += `• ${item.name} x${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}\n`;
-});
-
-message += "---------------------------------------\n";
-message += `*TOTAL: ₹${total.toFixed(2)}*\n\n`;
-message += `Thank you for shopping with us!\n_This is your official invoice from Sunaina Beauty Clinic._`;
-
-
-      const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
-      window.open(waURL, '_blank');
-
-      toggleModal(cartModal, false);
-      cart = [];
-      updateCartCount();
-      renderCart();
-      checkoutForm.reset();
-    });
-
-    // Booking form submit - send booking details via WhatsApp
-    bookingForm.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const name = e.target.bookingName.value.trim();
-      const phone = e.target.bookingPhone.value.trim();
-      const date = e.target.bookingDate.value;
-      const time = e.target.bookingTime.value;
-      const type = e.target.bookingType.value;
-      const notes = e.target.bookingNotes.value.trim();
-
-      if (!name || !phone || !date || !time || !type) {
-        alert('Please fill all required booking fields.');
-        return;
-      }
-
-      let message = `*📅 Sunaina Beauty Clinic Appointment Request*\n--------------------------------------\n`;
-message += `*Name:* ${name}\n*Phone:* ${phone}\n*Date & Time:* ${date} at ${time}\n*Type:* ${type}\n`;
-if (notes) message += `*Notes:* ${notes}\n`;
-message += "--------------------------------------\n";
-message += `_Please confirm my appointment. Thank you!_`;
-
-
-      const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
-      window.open(waURL, '_blank');
-
-      toggleModal(bookingModal, false);
-      bookingForm.reset();
-    });
-
-    // Render all grids on DOM content loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      renderGrid(treatmentsData, treatmentsContainer, 'treatment');
-      renderGrid(servicesData, servicesContainer, 'service');
-      renderGrid(productsData, productsContainer, 'product');
-
-      // Gallery uses <img> tags differently
-      galleryContainer.innerHTML = galleryData.map(item => `
-        <div tabindex="0" aria-label="Gallery image: ${item.alt || 'image'}">
-          <img src="${item.image}" alt="${item.alt || ''}" loading="lazy" width="300" height="200" style="border-radius:12px; cursor:pointer;" />
         </div>
-      `).join('');
+      `;
+    }).join('');
+  }
 
-      updateCartCount();
+  // ---- UPDATE CART COUNT ---- //
+  function updateCartCount() {
+    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+    cartCountSpan.textContent = count;
+  }
+
+  // ---- RENDER CART ---- //
+  function renderCart() {
+    if (!cart.length) {
+      cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+      totalAmountSpan.textContent = '₹0.00';
+      return;
+    }
+    let total = 0;
+    cartItemsDiv.innerHTML = cart.map(item => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      return `
+        <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5em;">
+          <span style="flex: 1;">${item.name}</span>
+          <div style="display: flex; align-items: center; gap: 0.5em;">
+            <button class="cart-qty-btn" data-id="${item.id}" data-action="minus" aria-label="Decrease quantity">−</button>
+            <span>${item.quantity}</span>
+            <button class="cart-qty-btn" data-id="${item.id}" data-action="plus" aria-label="Increase quantity">+</button>
+          </div>
+          <span style="width:62px; text-align:right;">₹${itemTotal.toFixed(2)}</span>
+        </div>
+      `;
+    }).join('');
+    totalAmountSpan.textContent = `₹${total.toFixed(2)}`;
+  }
+  cartItemsDiv.addEventListener('click', function(e) {
+    const btn = e.target.closest('.cart-qty-btn');
+    if (!btn) return;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    const cartItem = cart.find(item => item.id === id);
+    if (!cartItem) return;
+    if (action === "plus") {
+      cartItem.quantity++;
+    } else if (action === "minus") {
+      cartItem.quantity--;
+      if (cartItem.quantity <= 0) cart = cart.filter(i => i.id !== id);
+    }
+    updateCartCount();
+    renderCart();
+  });
+
+  // ---- ADD TO CART ---- //
+  function addToCart(itemId, type) {
+    let productList;
+    switch(type) {
+      case 'treatment': productList = treatmentsData; break;
+      case 'service': productList = servicesData; break;
+      case 'product': productList = productsData; break;
+      default: return;
+    }
+    const item = productList.find(i => i.id === itemId);
+    if (!item) return;
+
+    const existing = cart.find(ci => ci.id === itemId);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({...item, quantity: 1});
+    }
+    updateCartCount();
+    // alert(`Added "${item.name}" to cart.`);
+  }
+  document.body.addEventListener('click', e => {
+    if (e.target.closest('.add-to-cart')) {
+      const btn = e.target.closest('.add-to-cart');
+      const id = btn.getAttribute('data-id');
+      const type = btn.getAttribute('data-type');
+      addToCart(id, type);
+    }
+  });
+
+  cartIcon.addEventListener('click', () => {
+    renderCart();
+    toggleModal(cartModal, true);
+  });
+  openBookingBtn.addEventListener('click', () => {
+    const today = new Date().toISOString().slice(0,10);
+    document.getElementById('bookingDate').setAttribute('min', today);
+    toggleModal(bookingModal, true);
+  });
+
+  // ---- CART CHECKOUT FORM/INVOICE ---- //
+  checkoutForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!cart.length) {
+      alert('Your cart is empty.');
+      return;
+    }
+    const fullName = e.target.fullName.value.trim();
+    const phone = e.target.phone.value.trim();
+    const address = e.target.address.value.trim();
+    const pincode = e.target.pincode.value.trim();
+    if (!fullName || !phone || !address || !pincode) {
+      alert('Please fill all checkout fields.');
+      return;
+    }
+
+    let total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    let message = `*🧾 Sunaina Beauty Clinic Invoice*\n---------------------------------------\n`;
+    message += `*Customer:* ${fullName}\n*Phone:* ${phone}\n*Address:* ${address}, ${pincode}\n\n*Items:*\n`;
+    cart.forEach((item, idx) => {
+      message += `• ${item.name} x${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}\n`;
     });
+    message += "---------------------------------------\n";
+    message += `*TOTAL: ₹${total.toFixed(2)}*\n\n`;
+    message += `Thank you for shopping with us!\n_This is your official invoice from Sunaina Beauty Clinic._`;
 
-    // Close modals on outside click or ESC key
-    window.addEventListener('click', e => {
-      if (e.target.classList.contains('modal')) {
-        toggleModal(e.target, false);
-      }
-    });
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        [cartModal, bookingModal].forEach(modal => {
-          if (modal.classList.contains('show')) toggleModal(modal, false);
-        });
-      }
-    });
-    const galleryModal = document.getElementById('galleryModal');
-const galleryModalImg = document.getElementById('galleryModalImg');
-const galleryModalText = document.getElementById('galleryModalText');
+    const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
+    window.open(waURL, '_blank');
 
-// Open gallery modal on image click
-galleryContainer.addEventListener('click', e => {
-  const imgDiv = e.target.closest('div');
-  if (!imgDiv) return;
-  const idx = [...galleryContainer.children].indexOf(imgDiv);
-  const item = galleryData[idx];
-  if (!item) return;
-  galleryModalImg.src = item.image;
-  galleryModalImg.alt = item.alt || 'Gallery image';
-  galleryModalText.textContent = item.desc || '';
-  galleryModal.classList.add('show');
-  galleryModal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  galleryModal.querySelector('.modal-content').focus();
-});
+    toggleModal(cartModal, false);
+    cart = [];
+    updateCartCount();
+    renderCart();
+    checkoutForm.reset();
+  });
 
-galleryModal.querySelector('.close-modal').addEventListener('click', () => {
-  galleryModal.classList.remove('show');
-  galleryModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-});
+  // ---- BOOKING SUBMIT APPOINTMENT ---- //
+  bookingForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = e.target.bookingName.value.trim();
+    const phone = e.target.bookingPhone.value.trim();
+    const date = e.target.bookingDate.value;
+    const time = e.target.bookingTime.value;
+    const type = e.target.bookingType.value;
+    const notes = e.target.bookingNotes.value.trim();
 
-galleryModal.addEventListener('click', e => {
-  if (e.target === galleryModal) {
+    if (!name || !phone || !date || !time || !type) {
+      alert('Please fill all required booking fields.');
+      return;
+    }
+
+    let message = `*📅 Sunaina Beauty Clinic Appointment Request*\n--------------------------------------\n`;
+    message += `*Name:* ${name}\n*Phone:* ${phone}\n*Date & Time:* ${date} at ${time}\n*Type:* ${type}\n`;
+    if (notes) message += `*Notes:* ${notes}\n`;
+    message += "--------------------------------------\n";
+    message += `_Please confirm my appointment. Thank you!_`;
+
+    const waURL = `https://wa.me/917671824826?text=${encodeURIComponent(message)}`;
+    window.open(waURL, '_blank');
+
+    toggleModal(bookingModal, false);
+    bookingForm.reset();
+  });
+
+  // ---- RENDER ALL ON LOAD ---- //
+  document.addEventListener('DOMContentLoaded', () => {
+    renderGrid(treatmentsData, treatmentsContainer, 'treatment');
+    renderGrid(servicesData, servicesContainer, 'service');
+    renderGrid(productsData, productsContainer, 'product');
+    galleryContainer.innerHTML = galleryData.map(item => `
+      <div tabindex="0" aria-label="Gallery image: ${item.alt || 'image'}">
+        <img src="${item.image}" alt="${item.alt || ''}" loading="lazy" width="300" height="200" style="border-radius:12px;cursor:pointer;" />
+      </div>
+    `).join('');
+    updateCartCount();
+  });
+
+  // ---- GALLERY IMAGE MODAL ---- //
+  galleryContainer.addEventListener('click', e => {
+    const imgDiv = e.target.closest('div');
+    if (!imgDiv) return;
+    const idx = [...galleryContainer.children].indexOf(imgDiv);
+    const item = galleryData[idx];
+    if (!item) return;
+    galleryModalImg.src = item.image;
+    galleryModalImg.alt = item.alt || 'Gallery image';
+    galleryModalText.textContent = item.desc || '';
+    galleryModal.classList.add('show');
+    galleryModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    galleryModal.querySelector('.modal-content').focus();
+  });
+  galleryModal.querySelector('.close-modal').addEventListener('click', () => {
     galleryModal.classList.remove('show');
     galleryModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-  }
-});
+  });
+  galleryModal.addEventListener('click', e => {
+    if (e.target === galleryModal) {
+      galleryModal.classList.remove('show');
+      galleryModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
 
-  </script>
+  // ---- CLOSE MODALS ON ESCAPE ---- //
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      [cartModal, bookingModal, galleryModal, detailModal].forEach(modal => {
+        if (modal && modal.classList.contains('show')) toggleModal(modal, false);
+      });
+    }
+  });
+
+  // ---- CLOSE ANY MODAL ON CLICK OUTSIDE ---- //
+  window.addEventListener('click', e => {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if (e.target === modal && modal.classList.contains('show')) {
+        toggleModal(modal, false);
+      }
+    });
+  });
+</script>
 </body>
 </html>
