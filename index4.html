@@ -407,6 +407,22 @@
       background: var(--primary);
       color: #fff;
     }
+    .card-qty-btn {
+  background: #eee;
+  border: none;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  font-size: 1.2em;
+  color: var(--dark);
+  cursor: pointer;
+  transition: background .2s;
+}
+.card-qty-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
   </style>
 </head>
 <body>
@@ -523,8 +539,8 @@
           <option>Service</option>
           <option>Treatment</option>
         </select>
-        <label for="bookingNotes">Additional Notes</label>
-        <textarea id="bookingNotes"></textarea>
+        <label for="bookingNotes">Additional Notes*</label>
+        <textarea id="bookingNotes" required></textarea>
         <button type="submit">Send Booking via WhatsApp</button>
       </form>
     </div>
@@ -574,7 +590,7 @@
         <h3>Contact Us</h3>
         <p><a href="https://share.google/gJyEpsYQI31FqzfRf" tabindex="0"><i class="fas fa-map-marker-alt"></i> Sunaina Beauty Care clinic, Shivalayam street, lane, Puppalaguda - Manikonda, opp. Prathibha high school, near Shiva supermarket, Secretariat Employees Colony, Hyderabad, Telangana 500089</a></p>
         <p><i class="fas fa-phone"></i> +91 7671824826</p>
-        <p><i class="fas fa-envelope"></i> info@sunaina.com</p>
+        <!-- <p><i class="fas fa-envelope"></i> info@sunaina.com</p> -->
         <p><i class="fas fa-clock"></i> Mon–Sat: 10AM — 8PM</p>
       </div>
     </div>
@@ -778,27 +794,68 @@
     }
 
     // Render grids
-    function renderGrid(data, container, type){
-      container.innerHTML = data.map(item => {
-        const badge = item.badge ? `<div class="treatment-badge">${item.badge}</div>` : '';
-        return `
-          <div class="${type}-card" data-id="${item.id}" tabindex="0" aria-label="${item.name} - ₹${item.price}">
-            ${badge}
-            <div class="card-img" style="background-image:url('${item.image}')"></div>
-            <div class="card-content">
-              <h3>${item.name}</h3>
-              <p>${item.description}</p>
-              <div class="price">
-                <span>₹${item.price}</span>
-                <button class="add-to-cart" aria-label="Add ${item.name} to cart" data-id="${item.id}" data-type="${type}">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
+    function getCartCountById(id) {
+  const item = cart.find(c => c.id === id);
+  return item ? item.quantity : 0;
+}
+
+function renderGrid(data, container, type) {
+  container.innerHTML = data.map(item => {
+    const badge = item.badge ? `<div class="treatment-badge">${item.badge}</div>` : '';
+    const qty = getCartCountById(item.id);
+    return `
+      <div class="${type}-card" data-id="${item.id}" tabindex="0" aria-label="${item.name} - ₹${item.price}">
+        ${badge}
+        <div class="card-img" style="background-image:url('${item.image}')"></div>
+        <div class="card-content">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <div class="price" style="align-items:center; gap:6px;">
+            <span>₹${item.price}</span>
+            <div style="display:inline-flex; align-items:center; gap:2px;">
+              <button class="card-qty-btn" data-id="${item.id}" data-type="${type}" data-action="minus" aria-label="Remove one ${item.name}" style="width: 28px; height:28px; font-size: 1.15em;">−</button>
+              <span style="min-width:18px; display:inline-block;">${qty > 0 ? qty : ''}</span>
+              <button class="card-qty-btn" data-id="${item.id}" data-type="${type}" data-action="plus" aria-label="Add one more ${item.name}" style="width: 28px; height:28px; font-size: 1.15em;">+</button>
             </div>
           </div>
-        `;
-      }).join('');
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+document.body.addEventListener('click', e => {
+  const qtyBtn = e.target.closest('.card-qty-btn');
+  if (qtyBtn) {
+    const id = qtyBtn.getAttribute('data-id');
+    const type = qtyBtn.getAttribute('data-type');
+    const action = qtyBtn.getAttribute('data-action');
+    // Find in cart or add if not present
+    let cartItem = cart.find(ci => ci.id === id);
+    if (action === 'plus') {
+      if (cartItem) {
+        cartItem.quantity++;
+      } else {
+        let sourceArr = type === 'treatment' ? treatmentsData
+                     : type === 'service' ? servicesData
+                     : type === 'product' ? productsData : [];
+        const item = sourceArr.find(i => i.id === id);
+        if (item) cart.push({...item, quantity: 1});
+      }
+    } else if (action === 'minus') {
+      if (cartItem) {
+        cartItem.quantity--;
+        if (cartItem.quantity <= 0) cart = cart.filter(i => i.id !== id);
+      }
     }
+    updateCartCount();
+    renderCart();
+    // Update cards so counts are up-to-date
+    renderGrid(treatmentsData, treatmentsContainer, 'treatment');
+    renderGrid(servicesData, servicesContainer, 'service');
+    renderGrid(productsData, productsContainer, 'product');
+  }
+});
+
 
     // Cart count update
     function updateCartCount(){
