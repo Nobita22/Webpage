@@ -1,7 +1,7 @@
 {
   "name": "PWA Redirect",
   "short_name": "RedirectPWA",
-  "start_url": "./index.html",
+  "start_url": "https://github.com/Nobita22/Webpage",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#317EFB",
