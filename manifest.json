@@ -1,11 +1,10 @@
 {
-  "name": "PiCloud Redirect",
-  "short_name": "PiCloud",
-  "start_url": "https://nobita22.github.io/Webpage/",
+  "name": "PWA Redirect",
+  "short_name": "RedirectPWA",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#61dafb",
-  "description": "Simple PWA with a button redirecting to PiCloud.",
+  "background_color": "#ffffff",
+  "theme_color": "#317EFB",
   "icons": [
     {
       "src": "icon-192.png",
