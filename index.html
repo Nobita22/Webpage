@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PWA Redirect</title>
   <meta name="theme-color" content="#317EFB"/>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <style>
     body {
       font-family: sans-serif;
@@ -31,12 +31,12 @@
 
   <script>
     document.getElementById('redirectBtn').addEventListener('click', () => {
-      window.location.href = 'https://example.com'; // change this URL
+      window.location.href = 'http://sameer-desktop.local'; // Replace this with your real URL
     });
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then(reg => console.log('Service Worker registered', reg))
           .catch(err => console.error('Service Worker registration failed', err));
       });
