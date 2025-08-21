@@ -2,49 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PiCloud Redirect</title>
-  <link rel="manifest" href="manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PWA Redirect</title>
+  <meta name="theme-color" content="#317EFB"/>
+  <link rel="manifest" href="manifest.json">
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #121212;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: #f2f2f2;
     }
+
     button {
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      background-color: #61dafb;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      background: #317EFB;
+      color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      color: #121212;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #21a1f1;
-      color: white;
     }
   </style>
 </head>
 <body>
-  <button id="picloud-btn">Go to PiCloud</button>
+  <h1>PWA Redirect Button</h1>
+  <button id="redirectBtn">Go to Example</button>
 
   <script>
-    const picloudBtn = document.getElementById('picloud-btn');
-    picloudBtn.addEventListener('click', () => {
-      window.location.href = 'http://sameer-desktop.local/pi-cloud'; // Replace with your PiCloud URL
+    document.getElementById('redirectBtn').addEventListener('click', () => {
+      window.location.href = 'https://example.com'; // change this URL
     });
 
-    // Register service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(() => console.log('Service Worker Registered'));
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker registered', reg))
+          .catch(err => console.error('Service Worker registration failed', err));
       });
     }
   </script>
