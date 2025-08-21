@@ -1,7 +1,7 @@
 {
   "name": "PiCloud Redirect",
   "short_name": "PiCloud",
-  "start_url": ".",
+  "start_url": "https://nobita22.github.io/Webpage/",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#61dafb",
