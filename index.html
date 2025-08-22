@@ -30,23 +30,44 @@
   <button id="redirectBtn">Go to Example</button>
 
   <script>
-           window.addEventListener('load', () => {
-        registerSW();
-    });
+<script>
+  window.addEventListener('load', () => {
+    registerSW();
+  });
 
-    // Register the Service Worker
-    async function registerSW() {
-        if ('serviceWorker' in navigator) {
-            try {
-                await navigator
-                    .serviceWorker
-                    .register('sw.js');
-            }
-            catch (e) {
-                console.log('SW registration failed');
-            }
-        }
+  async function registerSW() {
+    if ('serviceWorker' in navigator) {
+      try {
+        await navigator.serviceWorker.register('sw.js');
+      } catch (e) {
+        console.log('SW registration failed');
+      }
     }
+  }
+
+  // Install prompt logic
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const btn = document.getElementById('redirectBtn');
+    btn.textContent = 'Install App';
+    btn.addEventListener('click', () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>
+
   </script>
 </body>
 </html>
