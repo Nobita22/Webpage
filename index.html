@@ -23,12 +23,43 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      margin: 10px;
     }
+
+    /* Install button */
+    #installBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #317EFB;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 2em;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    #installBtn:hover {
+      background-color: #256ac9;
+      transform: scale(1.1);
+    }
+
   </style>
 </head>
 <body>
   <h1>PWA Redirect Button</h1>
+  <!-- Redirect Button -->
   <button id="redirectBtn">Go to Example</button>
+
+  <!-- Install Button (will appear when PWA can be installed) -->
+  <button id="installBtn">⤴️</button>
 
   <script>
     // Register Service Worker
@@ -38,15 +69,22 @@
         .catch(err => console.error('Service Worker registration failed:', err));
     }
 
+    // Handle Redirect Button click
+    document.getElementById('redirectBtn').addEventListener('click', () => {
+      window.location.href = 'http://example.com'; // Replace with your actual URL
+    });
+
     // Handle Install Prompt
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
 
-      const btn = document.getElementById('redirectBtn');
-      btn.textContent = 'Install App';
-      btn.addEventListener('click', () => {
+      // Show install button
+      const installBtn = document.getElementById('installBtn');
+      installBtn.style.display = 'flex';
+
+      installBtn.addEventListener('click', () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
@@ -55,9 +93,17 @@
             console.log('User dismissed the install prompt');
           }
           deferredPrompt = null;
+          installBtn.style.display = 'none'; // Hide install button after user choice
         });
       });
     });
+
+    // Hide install button if app is installed
+    window.addEventListener('appinstalled', () => {
+      console.log('App was installed');
+      document.getElementById('installBtn').style.display = 'none'; // Hide install button after installation
+    });
+
   </script>
 </body>
 </html>
