@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="A simple Progressive Web App with a redirect button and install prompt functionality.">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome</title>
+  <meta name="description" content="A simple PWA with offline support and install prompt." />
+  <title>PWA Redirect</title>
   <meta name="theme-color" content="#317EFB"/>
   <link rel="manifest" href="./manifest.json">
-  <!-- Include Material Icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       margin-top: 50px;
       background: #f2f2f2;
-      padding: 0;
-      margin: 0;
-    }
-
-    h1 {
-      font-size: 2em;
-      color: #333;
-      margin-bottom: 30px;
     }
 
     button {
@@ -33,110 +23,34 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin: 10px;
-      transition: background-color 0.3s;
     }
-
-    button:hover {
-      background-color: #256ac9;
-    }
-
-    /* Redirect Button styling */
-    #redirectBtn {
-      margin-top: 50px;
-    }
-
-    /* Install Button styling - Small Icon */
-    #installBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #317EFB;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      font-size: 2em;
-      transition: all 0.3s;
-    }
-
-    #installBtn:hover {
-      background-color: #256ac9;
-      transform: scale(1.1);
-    }
-
-    /* Responsive design for mobile */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5em;
-      }
-
-      button {
-        width: 80%;
-        padding: 12px 20px;
-      }
-
-      #installBtn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5em;
-      }
-    }
-
   </style>
 </head>
 <body>
-  <h1>Welcome</h1>
-  <button id="redirectBtn">Open PIcloud</button>
-  <!-- Install Button with Material Icon -->
-  <button id="installBtn">
-    <span class="material-icons">install_mobile</span>
-  </button>
+  <h1>PWA Redirect Button</h1>
+  <button id="redirectBtn">Go to Example</button>
 
   <script>
-    // Redirect Button functionality
-    document.getElementById('redirectBtn').addEventListener('click', () => {
-      window.location.href = 'http://sameer-desktop.local/pi-cloud'; // Replace this with your real URL
-    });
-
-    // Register service worker
-    window.addEventListener('load', () => {
-      registerSW();
-    });
-
-    async function registerSW() {
-      if ('serviceWorker' in navigator) {
-        try {
-          await navigator.serviceWorker.register('sw.js');
-        } catch (e) {
-          console.log('SW registration failed');
-        }
-      }
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
     }
 
-    // Install prompt logic
+    // Handle Install Prompt
     let deferredPrompt;
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
 
-      // Show the install button
-      const installBtn = document.getElementById('installBtn');
-      installBtn.style.display = 'flex';
-
-      installBtn.addEventListener('click', () => {
+      const btn = document.getElementById('redirectBtn');
+      btn.textContent = 'Install App';
+      btn.addEventListener('click', () => {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
             console.log('User accepted the install prompt');
-            installBtn.style.display = 'none'; // Hide the install button after installation
           } else {
             console.log('User dismissed the install prompt');
           }
@@ -144,18 +58,6 @@
         });
       });
     });
-
-    // Check if the app is already installed
-    window.addEventListener('appinstalled', (e) => {
-      console.log('App was installed');
-      document.getElementById('installBtn').style.display = 'none'; // Hide install button after installation
-    });
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then(() => console.log('Service Worker registered'))
-    .catch(error => console.error('Service Worker registration failed:', error));
-}
-
   </script>
 </body>
 </html>
