@@ -1,18 +1,18 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
-// Immediately activate new service worker and take control of clients
+// Immediately activate the new service worker
 workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
 if (workbox) {
-  console.log('Workbox loaded');
+  console.log('Workbox is loaded');
 
-  // Precache app shell files with revisioning to force updates
+  // Precache files with explicit revision to ensure update on change
   workbox.precaching.precacheAndRoute([
-    { url: '/Webpage/index.html', revision: '2' },
+    { url: '/Webpage/index.html', revision: '2' },      // Increment revision on file update
     { url: '/Webpage/manifest.json', revision: '2' },
     { url: '/Webpage/icon2.png', revision: '1' },
-    // Add other static assets with revision numbers
+    // Add other assets here with revisioning as needed
   ]);
 
   // Cache images with StaleWhileRevalidate strategy
@@ -23,21 +23,21 @@ if (workbox) {
     })
   );
 
-  // Cache JS, CSS, other static assets (CacheFirst with max age)
+  // Cache CSS and JS files with CacheFirst strategy, max age 7 days
   workbox.routing.registerRoute(
     ({ url }) => url.origin === self.location.origin &&
-                 (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')),
+                 (url.pathname.endsWith('.css') || url.pathname.endsWith('.js')),
     new workbox.strategies.CacheFirst({
-      cacheName: 'static-assets',
+      cacheName: 'static-resources',
       plugins: [
         new workbox.expiration.ExpirationPlugin({
-          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          maxAgeSeconds: 7 * 24 * 60 * 60,
         }),
       ],
     })
   );
 
-  // Use Network First strategy for navigation requests (HTML pages)
+  // Network-first strategy for navigation requests (pages)
   workbox.routing.registerRoute(
     ({ request }) => request.mode === 'navigate',
     new workbox.strategies.NetworkFirst({
@@ -54,16 +54,16 @@ if (workbox) {
   console.log('Workbox failed to load');
 }
 
-// Clean up old caches during activation
+// Clean up old caches on activate
 self.addEventListener('activate', event => {
   const currentCaches = [
     workbox.core.cacheNames.precache,
     'image-cache',
-    'static-assets',
-    'pages-cache'
+    'static-resources',
+    'pages-cache',
   ];
   event.waitUntil(
-    caches.keys().then(cacheNames => 
+    caches.keys().then(cacheNames =>
       Promise.all(
         cacheNames.map(cacheName => {
           if (!currentCaches.includes(cacheName)) {
