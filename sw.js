@@ -7,9 +7,9 @@ workbox.routing.registerRoute(
 );
 const CACHE_NAME = 'Webpage-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  '/Webpage',
+  '/Webpage/index.html',
+  '/Webpage/manifest.json'
 ];
 
 // Install event: cache files
