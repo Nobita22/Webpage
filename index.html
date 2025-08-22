@@ -30,7 +30,9 @@
   <button id="redirectBtn">Go to Example</button>
 
   <script>
-
+           window.addEventListener('load', () => {
+        registerSW();
+    });
 
     // Register the Service Worker
     async function registerSW() {
