@@ -30,16 +30,20 @@
   <button id="redirectBtn">Go to Example</button>
 
   <script>
-    document.getElementById('redirectBtn').addEventListener('click', () => {
-      window.location.href = 'http://sameer-desktop.local/pi-cloud'; // Replace this with your real URL
-    });
 
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker registered', reg))
-          .catch(err => console.error('Service Worker registration failed', err));
-      });
+
+    // Register the Service Worker
+    async function registerSW() {
+        if ('serviceWorker' in navigator) {
+            try {
+                await navigator
+                    .serviceWorker
+                    .register('sw.js');
+            }
+            catch (e) {
+                console.log('SW registration failed');
+            }
+        }
     }
   </script>
 </body>
