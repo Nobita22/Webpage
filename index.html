@@ -32,7 +32,9 @@
   <button id="redirectBtn">Go to Example</button>
 
   <script>
-
+    document.getElementById('redirectBtn').addEventListener('click', () => {
+      window.location.href = 'http://sameer-desktop.local/pi-cloud'; // Replace this with your real URL
+    });
   window.addEventListener('load', () => {
     registerSW();
   });
