@@ -14,53 +14,14 @@
       margin: 2rem;
       text-align: center;
     }
-    button {
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
-      cursor: pointer;
-    }
-    #content {
-      margin-top: 2rem;
-      border: 1px solid #bbb;
-      padding: 1rem;
-      min-height: 200px;
-      text-align: left;
-      white-space: pre-wrap;
-      background: #f9f9f9;
-    }
-    #status {
-      margin-top: 1rem;
-      font-style: italic;
-      color: green;
-    }
   </style>
+
+  <script>
+    // Redirect as soon as page loads
+    window.location.href = 'http://sameer-desktop.local/pi-cloud/';
+  </script>
 </head>
 <body>
   <h1>Welcome</h1>
-  <button id="loadBtn" >Load</button>
-
-  
-  <script>
-    // Register Service Worker for offline use
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(registration => {
-    registration.onupdatefound = () => {
-      const newWorker = registration.installing;
-      newWorker.onstatechange = () => {
-        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          // New content is available; reload page to reflect changes
-          window.location.reload();
-        }
-      };
-    };
-  }).catch(console.error);
-}
-
-    // Handle Redirect Button click
-    document.getElementById('loadBtn').addEventListener('click', () => {
-      window.location.href = 'http://sameer-desktop.local/pi-cloud/'; // Replace with your actual URL
-    });
-
-  </script>
 </body>
 </html>
