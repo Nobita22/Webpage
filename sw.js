@@ -9,9 +9,9 @@ if (workbox) {
 
   // Precache files with explicit revision to ensure update on change
   workbox.precaching.precacheAndRoute([
-    { url: '/Webpage/index.html', revision: '3' },      // Increment revision on file update
-    { url: '/Webpage/manifest.json', revision: '3' },
-    { url: '/Webpage/icon2.png', revision: '1' },
+    { url: '/index.html', revision: '3' },      // Increment revision on file update
+    { url: '/manifest.json', revision: '3' },
+    { url: '/icon2.png', revision: '1' },
     // Add other assets here with revisioning as needed
   ]);
 
