@@ -4,58 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Webpage PWA</title>
-
-  <!-- Manifest for PWA -->
+  
+  <!-- Web App Manifest -->
   <link rel="manifest" href="manifest.json" />
-
+  
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 2rem;
       text-align: center;
     }
+    button {
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      cursor: pointer;
+    }
     #content {
       margin-top: 2rem;
       border: 1px solid #bbb;
       padding: 1rem;
-      min-height: 300px;
+      min-height: 200px;
       text-align: left;
-      background: #f9f9f9;
       white-space: pre-wrap;
+      background: #f9f9f9;
+    }
+    #status {
+      margin-top: 1rem;
+      font-style: italic;
+      color: green;
     }
   </style>
 </head>
 <body>
-  <h1>Webpage PWA</h1>
-  <div id="content">Loading content...</div>
+  <h1>Welcome</h1>
+  <button id="loadBtn" >Load</button>
 
+  
   <script>
-    async function loadPiData() {
-      try {
-        const response = await fetch('http://sameer-desktop.local/pi-cloud/'); // replace with your Pi IP
-        if (!response.ok) throw new Error('Network error');
-        const html = await response.text();
-        document.getElementById('content').innerHTML = html;
-      } catch (error) {
-        document.getElementById('content').textContent = 'Failed to load content: ' + error.message;
-      }
-    }
-
-    window.addEventListener('load', loadPiData);
-
-    // Optional: attempt fullscreen on supported devices (may require user interaction)
-    window.onload = () => {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      }
+    // Register Service Worker for offline use
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(registration => {
+    registration.onupdatefound = () => {
+      const newWorker = registration.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New content is available; reload page to reflect changes
+          window.location.reload();
+        }
+      };
     };
+  }).catch(console.error);
+}
 
-    // Service worker registration (if applicable)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(() => {
-        console.log('Service Worker registered');
-      }).catch(console.error);
-    }
+    // Handle Redirect Button click
+    document.getElementById('loadBtn').addEventListener('click', () => {
+      window.location.href = 'http://sameer-desktop.local/pi-cloud/'; // Replace with your actual URL
+    });
+
   </script>
 </body>
 </html>
