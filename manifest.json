@@ -1,7 +1,7 @@
 
 {
-  "name": "PWA Redirect",
-  "short_name": "RedirectPWA",
+  "name": "PI",
+  "short_name": "PI",
   "start_url": "/Webpage",
   "scope": "/Webpage",
   "display": "standalone",
