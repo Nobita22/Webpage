@@ -2,108 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="A simple PWA with offline support and install prompt." />
-  <title>Welcome</title>
-  <meta name="theme-color" content="#317EFB"/>
-  <link rel="manifest" href="./manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webpage PWA</title>
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
+      margin: 2rem;
       text-align: center;
-      margin-top: 50px;
-      background: #f2f2f2;
     }
-
     button {
-      font-size: 1.2em;
-      padding: 15px 30px;
-      background: #317EFB;
-      color: white;
-      border: none;
-      border-radius: 8px;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
       cursor: pointer;
-      margin: 10px;
     }
-
-    /* Install button */
-    #installBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #317EFB;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 2em;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s;
+    #content {
+      margin-top: 2rem;
+      border: 1px solid #bbb;
+      padding: 1rem;
+      min-height: 200px;
+      text-align: left;
+      white-space: pre-wrap;
+      background: #f9f9f9;
     }
-
-    #installBtn:hover {
-      background-color: #256ac9;
-      transform: scale(1.1);
+    #status {
+      margin-top: 1rem;
+      font-style: italic;
+      color: green;
     }
-
   </style>
 </head>
 <body>
-  <h1>Welcomeuu</h1>
-  <!-- Redirect Button -->
-  <button id="redirectBtn">Pi CLoud</button>
-
-  <!-- Install Button (will appear when PWA can be installed) -->
-  <button id="installBtn">⤴️</button>
-
+  <h1>Webpage PWA</h1>
+  <button id="loadBtn" data-url="http://sameer-desktop.local/pi-cloud">Load</button>
+  <div id="status"></div>
+  <div id="content">Content will appear here after loading.</div>
+  
   <script>
-    // Register Service Worker
+    // Register Service Worker for offline use
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js')
+      navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker registered'))
-        .catch(err => console.error('Service Worker registration failed:', err));
+        .catch(console.error);
     }
 
-    // Handle Redirect Button click
-    document.getElementById('redirectBtn').addEventListener('click', () => {
-      window.location.href = 'http://sameer-desktop.local/pi-cloud/'; // Replace with your actual URL
+    const loadBtn = document.getElementById('loadBtn');
+    const contentDiv = document.getElementById('content');
+    const statusDiv = document.getElementById('status');
+
+    loadBtn.addEventListener('click', async () => {
+      const url = loadBtn.getAttribute('data-url');
+      statusDiv.textContent = 'Loading content...';
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const html = await response.text();
+        contentDiv.textContent = html;
+        statusDiv.textContent = 'Content loaded successfully.';
+        // Cache loaded content for offline - shown simple in service worker
+      } catch (err) {
+        statusDiv.textContent = 'Failed to load content: ' + err.message;
+      }
     });
-
-    // Handle Install Prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-
-      // Show install button
-      const installBtn = document.getElementById('installBtn');
-      installBtn.style.display = 'flex';
-
-      installBtn.addEventListener('click', () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          } else {
-            console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null;
-          installBtn.style.display = 'none'; // Hide install button after user choice
-        });
-      });
-    });
-
-    // Hide install button if app is installed
-    window.addEventListener('appinstalled', () => {
-      console.log('App was installed');
-      document.getElementById('installBtn').style.display = 'none'; // Hide install button after installation
-    });
-
   </script>
 </body>
 </html>
