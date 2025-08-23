@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="manifest.json" />
   <title>Webpage PWA Loading</title>
   <style>
     /* Fullscreen loader */
@@ -27,6 +28,19 @@
         window.location.href = 'http://sameer-desktop.local/pi-cloud/';
       }, 500);
     });
+    if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(registration => {
+    registration.onupdatefound = () => {
+      const newWorker = registration.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New content is available; reload page to reflect changes
+          window.location.reload();
+        }
+      };
+    };
+  }).catch(console.error);
+}
   </script>
 </head>
 <body>
