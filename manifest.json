@@ -2,8 +2,8 @@
 {
   "name": "PWA Redirect",
   "short_name": "RedirectPWA",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/Webpage",
+  "scope": "/Webpage",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#317EFB",
