@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Ultimate Raspberry Pi Landing</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto&display=swap');
+
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #5a11d2, #927eff);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      animation: fadeInScale 1s ease forwards;
+    }
+    
+    @keyframes fadeInScale {
+      0% {opacity: 0; transform: scale(0.95);}
+      100% {opacity: 1; transform: scale(1);}
+    }
+
+    /* Container without tilt */
+    .landing-container {
+      background: rgba(255,255,255,0.07);
+      border-radius: 30px;
+      padding: 50px 70px;
+      max-width: 620px;
+      width: 90vw;
+      box-shadow:
+        inset 0 0 80px #a7a4ff60,
+        0 40px 100px rgba(77, 44, 171, 0.5);
+      transition: box-shadow 0.3s ease;
+    }
+
+    /* Hero Titles */
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 3.8rem;
+      letter-spacing: -0.04em;
+      text-shadow: 0 0 15px #a693f8cc;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    p.lead {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      color: #cccce7dd;
+      user-select: none;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 9999px;
+      padding: 18px 55px;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.01em;
+      box-shadow: 0 12px 15px rgba(0, 0, 70, 0.9);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    button:focus {
+      outline: none;
+    }
+
+    .btn-shutdown {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+      box-shadow:
+        0 16px 32px #ff4e3dab,
+        inset 0 -3px 10px #ff725357;
+    }
+    .btn-shutdown:hover {
+      background: linear-gradient(45deg, #ff5e81, #ff663f);
+      box-shadow: 0 20px 45px #ff4e3dcc;
+      transform: translateY(-5px);
+    }
+    .btn-open {
+      background: #292944;
+      color: #9a99ef;
+      box-shadow:
+        0 10px 22px #4a4a62,
+        inset 0 -3px 8px #7273fb;
+    }
+    .btn-open:hover {
+      background: #3b3b70;
+      color: #dddeff;
+      box-shadow: 0 16px 30px #6f6fffcc;
+      transform: translateY(-5px);
+    }
+
+    /* Ripple effect on buttons */
+    button:after {
+      content: "";
+      position: absolute;
+      width: 0; height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transition: width 0.3s ease, height 0.3s ease;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    button:active:after {
+      width: 120%;
+      height: 350%;
+      transition: 0s;
+    }
+
+    /* Footer */
+    footer {
+      position: absolute;
+      bottom: 25px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #aa99ffbb;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.7rem;
+      }
+      p.lead {
+        font-size: 1rem;
+        margin-bottom: 30px;
+      }
+      .btn-group {
+        flex-direction: column;
+        gap: 18px;
+      }
+      button {
+        width: 100%;
+        padding: 14px 0;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="landing-container" tabindex="0" aria-label="Welcome landing page">
+    <h1>Welcome to Your Raspberry Pi</h1>
+    <p class="lead">Unleash the power of your Pi — manage, explore, and innovate, all at your fingertips.</p>
+
+    <div class="btn-group" role="group" aria-label="Primary actions">
+      <button class="btn btn-shutdown" onclick="confirmShutdown()">Shutdown Pi</button>
+      <button class="btn btn-open" onclick="openPi()">Open Pi</button>
+    </div>
+  </div>
+
+  <footer></footer>
+
+<script>
+  function confirmShutdown() {
+    if(confirm("Are you absolutely sure you want to shutdown your Raspberry Pi?")) {
+      window.location.href = "/shutdown.php";
+    }
+  }
+  function openPi() {
+    window.location.href = "/index.php";
+  }
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(registration => {
+    registration.onupdatefound = () => {
+      const newWorker = registration.installing;
+      newWorker.onstatechange = () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          // New content is available; reload page to reflect changes
+          window.location.reload();
+        }
+      };
+    };
+  }).catch(console.error);
+}
+</script>
+
+</body>
+</html>
