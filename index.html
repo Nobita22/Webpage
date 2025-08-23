@@ -36,14 +36,14 @@
   </style>
 </head>
 <body>
-  <h1>Welcome2</h1>
+  <h1>Welcome99</h1>
   <button id="loadBtn" >Load</button>
 
   
   <script>
     // Register Service Worker for offline use
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/Webpage/sw.js').then(registration => {
+  navigator.serviceWorker.register('sw.js').then(registration => {
     registration.onupdatefound = () => {
       const newWorker = registration.installing;
       newWorker.onstatechange = () => {
