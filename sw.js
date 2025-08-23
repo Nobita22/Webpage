@@ -31,7 +31,7 @@ if (workbox) {
       cacheName: 'static-resources',
       plugins: [
         new workbox.expiration.ExpirationPlugin({
-          maxAgeSeconds: 7 * 24 * 60 * 60,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
         }),
       ],
     })
@@ -67,6 +67,7 @@ self.addEventListener('activate', event => {
       Promise.all(
         cacheNames.map(cacheName => {
           if (!currentCaches.includes(cacheName)) {
+            console.log('[Service Worker] Deleting outdated cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
